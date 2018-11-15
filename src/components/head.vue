@@ -1,10 +1,10 @@
 <template>
     <div class="head">
         <div class="header">
-                <a class="logo"><img src="https://img20.360buyimg.com/da/jfs/t1/10711/29/1406/175826/5bddbc89Ee3205f5c/47702a52efff38ad.gif?t=1541497689890" alt=""></a>
+                <a class="logo"><i class="iconfont icon-liebiao"></i></a>
                 <div class="container">
                     <form action="#">
-                        <input type="search" placeholder="请输入你想要的商品">
+                        <input type="search" placeholder="请输入你想要的商品" @click="toSearch">
                     </form>
                 </div>
                 <a class="login">登录</a>
@@ -12,7 +12,18 @@
     </div>    
 </template>
 <script>
-    
+    export default{
+        data(){
+            return{
+
+            }
+        },
+        methods:{
+            toSearch(){
+                this.$router.push({path:"/search"})
+            },
+        }
+    }
 </script>
 <style lang="less" scoped>
 .head {
@@ -34,19 +45,24 @@
             line-height: 20px;
             text-align: center;
             font-size: 14px;
-            color: #fff;
+            // color: #fff;
     }
     .logo {
             position: absolute;
             top: 10px;
             left: 10px;
             display: block;
-            background-color: green;
+            text-align: center;
+            line-height: 20px;
+            color:#ccc;
             height: 20px;
             width: 20px;
             img {
                 height: 100%;
                 width: 100%;
+            }
+            i{
+                font-size: 20px;
             }
         }
     .container {
@@ -65,6 +81,9 @@
             text-align: center;
             background-color: #fff;
         }
+    }
+    .login{
+        color:#fff;
     }
     
     }

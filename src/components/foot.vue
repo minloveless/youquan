@@ -1,24 +1,24 @@
 <template>
-    <div>
+    <div class="zaidibu">
       <tabbar>
-        <tabbar-item selected  link="/home" >
-          <img slot="icon" src="https://hdres.huisou.cn/static/images/footer/footer_home_selected.png" alt="">
+        <tabbar-item selected  link="/indexhome" >
+          <i slot="icon" class="iconfont icon-yemian-copy-copy"></i>
           <label slot="label">首页</label>
         </tabbar-item>
         <tabbar-item link="/classify" >
-          <img slot="icon" src="https://hdres.huisou.cn/static/images/footer/footer_home_selected.png" alt="">
+          <i slot="icon" class="iconfont icon-leimupinleifenleileibie"></i>
           <label slot="label">分类</label>
         </tabbar-item>
         <tabbar-item  link="/activity">
-          <img slot="icon" src="https://hdres.huisou.cn/static/images/footer/footer_home_selected.png" alt="">
+          <i slot="icon" class="iconfont icon-huodong"></i>
           <label slot="label">活动</label>
         </tabbar-item>
         <tabbar-item  link="/shopcar">
-          <img slot="icon" src="https://hdres.huisou.cn/static/images/footer/footer_home_selected.png" alt="">
+          <i slot="icon" class="iconfont icon-gouwuche"></i>
           <label slot="label">购物车</label>
         </tabbar-item>
         <tabbar-item  link="/mine">
-          <img slot="icon" src="https://hdres.huisou.cn/static/images/footer/footer_home_selected.png" alt="">
+          <i slot="icon" class="iconfont icon-wodedangxuan"></i>
           <label slot="label">我的</label>
         </tabbar-item>
       </tabbar>
@@ -29,8 +29,33 @@
     export default {
   data(){
     return {
-    //   alertMsg: '1111',
-    //   showAlert: false
+        list:[
+          {
+            id:'1',
+            url:"https://hdres.huisou.cn/static/images/footer/footer_home_selected.png",
+            item:"首页"
+          },
+          {
+            id:'2',
+            url:"https://hdres.huisou.cn/static/images/footer/footer_home_selected.png",
+            item:"分类"
+          },
+          {
+            id:'3',
+            url:"https://hdres.huisou.cn/static/images/footer/footer_home_selected.png",
+            item:"活动"
+          },
+          {
+            id:'4',
+            url:"https://hdres.huisou.cn/static/images/footer/footer_home_selected.png",
+            item:"购物车"
+          },
+          {
+            id:'5',
+            url:"https://hdres.huisou.cn/static/images/footer/footer_home_selected.png",
+            item:"我的"
+          },
+        ]
     }
   },
   components: {
@@ -69,6 +94,6 @@
         },
 }
 </script>
-<style>
-
+<style lang="less" scoped>
 </style>
+
