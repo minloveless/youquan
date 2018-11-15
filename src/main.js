@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import './assets/iconfont/iconfont.css'
+// import commons from '../src/js/common'
+// Vue.prototype.common=commons;
 
 Vue.config.productionTip = false
 
@@ -20,7 +22,7 @@ router.beforeEach((to, from, next) => {
   if(to.meta&&to.meta.title){
     document.title = to.meta.title
   }
-  if((to.path === '/cartList'||to.path === '/mine')&&commons.GetString(commons.GetSessUserTo()) == ""){
+  if((to.path === '/cartList'||to.path === '/mine1')&&commons.GetString(commons.GetSessUserTo()) == ""){
       next('/login')
   }else{
       next()

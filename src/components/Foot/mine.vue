@@ -2,7 +2,7 @@
     <div class="wrapper">
         <scroller lock-x height="-50">
             <div>
-                        <x-header :left-options="{backText:''}"
+    <x-header :left-options="{backText:''}"
         :right-options="{showMore:true}">我的有券</x-header>
         <div class="card_box">
             <div class="mine_card">

@@ -12,13 +12,13 @@
 import classifysearch from '../classify/classifySearch'
 import classifylist from '../classify/classifyList'
 import childlist from '../classify/childList'
-import productList from '../classify/productList'
+import productlist from '../classify/productList'
 export default {
     components:{
         classifysearch,
         classifylist,
         childlist,
-        productList,
+        productlist,
     }
 }
 </script>
@@ -29,8 +29,6 @@ export default {
     right: 0;
     bottom: 40px;
     left: 76px;
-    height: 1000px;
-    width: 1000px;
     overflow-y:scroll;
 }
 </style>
