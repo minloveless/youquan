@@ -1,16 +1,170 @@
 <template>
-    <div>
+    <div class="shopcar_box">
         <x-header :left-options="{backText:''}"
         :right-options="{showMore:true}">购物车</x-header>
         <div class="address">
-            <span @click="selectaddress()"><i class="iconfont icon-dizhi"></i>{{value}}</span>
+            <span @click="selectaddress()"><i class="iconfont icon-dizhi"></i>请选择地址</span>
             <p>编辑商品</p>
+        </div>
+        <div class="youjuan_showList">
+            <div class="showList_box">
+                <div class="listContent">
+                    <div class="head_wrap">
+                        <div class="head">
+                            <i class="iconfont icon-xuanzhong"></i>
+                            <i></i>
+                            <span>有券良品</span>
+                            <div>优惠券</div>
+                        </div>
+                    </div>
+                    <div class="listItem">
+                        <div class="top">
+                            <i class="iconfont icon-search"></i>
+                            <span class="top_price">购满199元，可用优惠券换购商品</span>
+                            <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
+                        </div>
+                        <div class="content">
+                            <div class="content_l">
+                                <span><i class="iconfont icon-xuanzhong xuanzhong"></i></span>
+                                <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
+                            </div>
+                            <div class="content_r">
+                                <div class="goods_title">Apple AirPods 蓝牙无线耳机</div>
+                                <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
+                                <div class="goods_number">
+                                    <span class="price">￥1199.00</span>
+                                    <span class="number"><i class="iconfont icon--hao"></i>1<i class="iconfont icon-hao"></i></span>
+                                </div>
+                                <div class="add_delect">
+                                    <span>移除关注</span>
+                                    |
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="bottomBox">
+                            <li>
+                                <span class="bottom_l">促销</span>
+                                <span class="bottom_c">满199元加65元可换购商品</span>
+                                <span class="bottom_r">3个可选<i class="iconfont icon-down-trangle"></i></span>
+                            </li>
+                            <li>
+                                <span class="bottom_l">服务</span>
+                                <span class="bottom_c">选择增值服务(包含礼品服务)</span>
+                                <span class="bottom_r"><i class="iconfont icon-jiantou-right"></i></span>
+                            </li>
+                        </ul>
+                    </div>
+                                        <div class="listItem">
+                        <div class="top">
+                            <i class="iconfont icon-search"></i>
+                            <span class="top_price">购满199元，可用优惠券换购商品</span>
+                            <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
+                        </div>
+                        <div class="content">
+                            <div class="content_l">
+                                <span><i class="iconfont icon-xuanzhong xuanzhong"></i></span>
+                                <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
+                            </div>
+                            <div class="content_r">
+                                <div class="goods_title">Apple AirPods 蓝牙无线耳机</div>
+                                <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
+                                <div class="goods_number">
+                                    <span class="price">￥1199.00</span>
+                                    <span class="number"><i class="iconfont icon--hao"></i>1<i class="iconfont icon-hao"></i></span>
+                                </div>
+                                <div class="add_delect">
+                                    <span>移除关注</span>
+                                    |
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="bottomBox">
+                            <li>
+                                <span class="bottom_l">促销</span>
+                                <span class="bottom_c">满199元加65元可换购商品</span>
+                                <span class="bottom_r">3个可选<i class="iconfont icon-down-trangle"></i></span>
+                            </li>
+                            <li>
+                                <span class="bottom_l">服务</span>
+                                <span class="bottom_c">选择增值服务(包含礼品服务)</span>
+                                <span class="bottom_r"><i class="iconfont icon-jiantou-right"></i></span>
+                            </li>
+                        </ul>
+                    </div>
+                                        <div class="listItem">
+                        <div class="top">
+                            <i class="iconfont icon-search"></i>
+                            <span class="top_price">购满199元，可用优惠券换购商品</span>
+                            <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
+                        </div>
+                        <div class="content">
+                            <div class="content_l">
+                                <span><i class="iconfont icon-xuanzhong xuanzhong"></i></span>
+                                <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
+                            </div>
+                            <div class="content_r">
+                                <div class="goods_title">Apple AirPods 蓝牙无线耳机</div>
+                                <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
+                                <div class="goods_number">
+                                    <span class="price">￥1199.00</span>
+                                    <span class="number"><i class="iconfont icon--hao"></i>1<i class="iconfont icon-hao"></i></span>
+                                </div>
+                                <div class="add_delect">
+                                    <span>移除关注</span>
+                                    |
+                                    <span>删除</span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="bottomBox">
+                            <li>
+                                <span class="bottom_l">促销</span>
+                                <span class="bottom_c">满199元加65元可换购商品</span>
+                                <span class="bottom_r">3个可选<i class="iconfont icon-down-trangle"></i></span>
+                            </li>
+                            <li>
+                                <span class="bottom_l">服务</span>
+                                <span class="bottom_c">选择增值服务(包含礼品服务)</span>
+                                <span class="bottom_r"><i class="iconfont icon-jiantou-right"></i></span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+                <div class="fixBar">
+                    <div class="fixBar_box">
+                        <div class="fixBar_l">
+                            <i class="iconfont icon-xuanzhong"></i><span>全选</span>
+                        </div>
+                        <div class="fixBar_r">
+                            <div class="fixBar_rl">
+                                <div class="fix_lt">
+                                    <span class="fix_lt_number">总计：</span>
+                                    <span class="fix_lt_price">￥1155.00</span>
+                                </div>
+                                <div class="fix_lb">
+                                    <span>总额￥1155.00</span>
+                                    <span>立减￥0.00</span>
+                                </div>
+                            </div>
+                            <div class="fixBar_rr">
+                                <span>去结算</span>
+                                <span class="all_number">（3件）</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="moreYouWant"></div>
+            <div class="moregoods"></div>
         </div>
 
 
 
 
-        <x-address style="display:none;" title="title" v-model="value" :list="addressData" placeholder="请选择地址" :show.sync="showAddress"></x-address>
+        <x-address style="display:none;" title="title" :list="addressData" placeholder="请选择地址" :show.sync="showAddress"></x-address>
     </div>
 </template>
 <script>
@@ -20,7 +174,7 @@ export default {
         return{
             showAddress: false,
             addressData: ChinaAddressV4Data,
-            value      : '请输入地址',
+            // value      : '请输入地址',
         }
     },
     components: {
@@ -36,11 +190,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.shopcar_box{
+    overflow-y    : scroll;
+    overflow      : hidden;
+    padding-bottom: 50px;
+}
 .address{
     height       : 45px;
     line-height  : 45px;
     padding      : 0 10px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #f3f3f3;
     span{
         display  : block;
         float    : left;
@@ -51,6 +210,233 @@ export default {
         float    : right;
         font-size: 14px;
         color    : #ff3742;
+    }
+}
+.youjuan_showList{
+    .showList_box{
+        .listContent{
+            .head_wrap{
+                padding: 10px;
+                .head{
+                    .icon-xuanzhong{
+                        font-size: 20px;
+                    }
+                    span{
+                        padding-left: 5px;
+                        font-size   : 16px;
+                    }
+                    div{
+                        float: right;
+                        color: #ff3742;
+                    }
+                }
+            }
+            .listItem{
+                position     : relative;
+                padding      : 10px;
+                height       : 195px;
+                margin-bottom: 10px;
+                border-top   : 1px solid #f3f3f3;
+                .top{
+                    .icon-search{
+                        font-size: 20px;
+                    }
+                    .top_price{
+                        padding-left: 10px;
+                        color       : #ff3742;
+                    }
+                    .coudan{
+                        float    : right;
+                        font-size: 12px;
+                        color    : #ccc;
+                        .icon-jiantou-right{
+                            font-size: 12px;
+                        }
+                    }
+                }
+                .content{
+                    padding-top: 8px;
+                    .content_l{
+                        float: left;
+                        span{
+                            position: relative;
+                            .xuanzhong{
+                            position : absolute;
+                            top      : 30px;
+                            font-size: 20px;
+                        }
+
+                        }
+                        .showyou{
+                            height      : 75px;
+                            width       : 75px;
+                            padding-left: 30px;
+                        }
+                    }
+                    .content_r{
+                        float       : left;
+                        padding-left: 15px;
+                        .goods_title{
+                            font-size: 14px;
+                        }
+                        .goods_classify{
+                            margin      : 8px 0;
+                            border      : 1px solid #e5e5e5;
+                            height      : 21px;
+                            width       : 225px;
+                            font-size   : 14px;
+                            padding-left: 5px;
+                            line-height : 21px;
+                            color       : #666;
+                            .icon-down-trangle{
+                                float: right;
+                            }
+                        }
+                        .goods_number{
+                            height     : 30px;
+                            line-height: 30px;
+                            .price{
+                                float    : left;
+                                color    : #ff3742;
+                                font-size: 16px;
+                            }
+                            .number{
+                                float           : right;
+                                height          : 30px;
+                                width           : 110px;
+                                background-color: #f3f3f3;
+                                text-align      : center;
+                                line-height     : 30px;
+                                color           : #666;
+                                .icon--hao{
+                                    display: inline-block;
+                                    height : 30px;
+                                    width  : 30px;
+                                    float  : left;
+                                    color  : #e5e5e5;
+                                }
+                                .icon-hao{
+                                    display: inline-block;
+                                    height : 30px;
+                                    width  : 30px;
+                                    float  : right;
+                                    color  : #666;
+                                }
+                            }
+                        }
+                        .add_delect{
+                            position: absolute;
+                            right   : 10px;
+                            margin  : 5px;
+                            color   : #e5e5e5;
+                            span{
+                                padding: 5px;
+                                color  : #ccc;
+                            }
+                        }
+                    }
+                }
+                .bottomBox{
+                    position        : absolute;
+                    bottom          : 0px;
+                    right           : 10px;
+                    height          : 35px;
+                    width           : 305px;
+                    background-color: #f3f3f3;
+                    padding         : 10px;
+                    li{
+                        height   : 20px;
+                        color    : #999;
+                        font-size: 12px;
+                        .bottom_l{
+                            float: left;
+                            color: #666;
+                        }
+                        .bottom_c{
+                            float       : left;
+                            padding-left: 10px;
+                            color       : #999;
+                        }
+                        .bottom_r{
+                            float: right;
+                            .icon-jiantou-right{
+                                font-size: 12px;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        }
+        .fixBar_box{
+            height          : 50px;
+            width           : 100%;
+            background-color: #f3f3f3;
+            position        : fixed;
+            bottom          : 0;
+            left            : 0;
+            padding-left    : 10px;
+            padding-top     : 5px;
+            box-sizing      : border-box;
+            // line-height: 50px;
+            .fixBar_l{
+                float     : left;
+                text-align: center;
+                .icon-xuanzhong{
+                    display  : block;
+                    font-size: 20px;
+                }
+                span{
+                    color: #999;
+                }
+            }
+            .fixBar_r{
+                float: right;
+                .fixBar_rl{
+                    // float: left;
+                    position: absolute;
+                    right   : 120px;
+                    .fix_lt{
+                        float: right;
+                        .fix_lt_number{
+                            font-weight: 700;
+                            font-size  : 16px;
+                            color      : #333;
+                        }
+                        .fix_lt_price{
+                            color      : #ff3742;
+                            font-size  : 16px;
+                            font-weight: 700;
+                        }
+                    }
+                    .fix_lb{
+                        float      : right;
+                        padding-top: 2px;
+                        color      : #999;
+                    }
+
+                }
+                .fixBar_rr{
+                    float           : right;
+                    background-color: #ff3742;
+                    height          : 50px;
+                    width           : 110px;
+                    margin-left     : 10px;
+                    text-align      : center;
+                    line-height     : 50px;
+                    color           : #fff;
+                    font-weight     : 700;
+                    font-size       : 16px;
+                    .all_number{
+                        font-size  : 12px;
+                        font-weight: 400;
+                        font-family: none;
+                        outline    : none;
+                    }
+                }
+            }
+        }
     }
 }
 </style>
