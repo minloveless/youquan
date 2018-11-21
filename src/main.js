@@ -6,6 +6,9 @@ import router from './router'
 import './assets/iconfont/iconfont.css'
 // import commons from '../src/js/common'
 // Vue.prototype.common=commons;
+import axios from 'axios';
+import vueAxios from 'vue-axios'
+Vue.use(vueAxios,axios)
 
 Vue.config.productionTip = false
 

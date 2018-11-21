@@ -33,10 +33,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="less">
 .tolo {
   margin-top: 100px;
 }
   /* @import "./style/swiper.css";
   @import "./style/plick.less"; */
+  @import "./style/common.less";
 </style>

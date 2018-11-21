@@ -2,30 +2,31 @@
     <div class="shopcar_box">
         <x-header :left-options="{backText:''}"
         :right-options="{showMore:true}">购物车</x-header>
-        <div class="address">
+        <div class="address" v-if="carList.length">
             <span @click="selectaddress()"><i class="iconfont icon-dizhi"></i>请选择地址</span>
-            <p>编辑商品</p>
+            <p @click="editorAll">{{allEditor?'完成':'编辑商品'}}</p>
         </div>
         <div class="youjuan_showList">
             <div class="showList_box">
                 <div class="listContent">
                     <div class="head_wrap">
                         <div class="head">
-                            <i class="iconfont icon-xuanzhong"></i>
-                            <i></i>
+                            <i class="iconfont icon-xuanzhong" v-show="!active" @click.stop.prevent="chooseCom(1)"></i>
+                            <i class="iconfont icon-xuanzhong1" v-show="active" @click.stop.prevent="chooseCom(0)"></i>
                             <span>有券良品</span>
                             <div>优惠券</div>
                         </div>
                     </div>
                     <div class="listItem">
                         <div class="top">
-                            <i class="iconfont icon-search"></i>
+                            <i class="iconfont icon-dianpu"></i>
                             <span class="top_price">购满199元，可用优惠券换购商品</span>
                             <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
                         </div>
                         <div class="content">
                             <div class="content_l">
-                                <span><i class="iconfont icon-xuanzhong xuanzhong"></i></span>
+                                <span><i class="iconfont icon-xuanzhong xuanzhong"  v-show="!goodsactive" @click.stop.prevent="chooseOne(1,0)"></i></span>
+                                <span><i class="iconfont icon-xuanzhong1 xuanzhong"  v-show="goodsactive" @click.stop.prevent="chooseOne(0,0)"></i></span>
                                 <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
                             </div>
                             <div class="content_r">
@@ -55,53 +56,16 @@
                             </li>
                         </ul>
                     </div>
-                                        <div class="listItem">
+                    <div class="listItem">
                         <div class="top">
-                            <i class="iconfont icon-search"></i>
+                            <i class="iconfont icon-dianpu"></i>
                             <span class="top_price">购满199元，可用优惠券换购商品</span>
                             <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
                         </div>
                         <div class="content">
                             <div class="content_l">
-                                <span><i class="iconfont icon-xuanzhong xuanzhong"></i></span>
-                                <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
-                            </div>
-                            <div class="content_r">
-                                <div class="goods_title">Apple AirPods 蓝牙无线耳机</div>
-                                <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
-                                <div class="goods_number">
-                                    <span class="price">￥1199.00</span>
-                                    <span class="number"><i class="iconfont icon--hao"></i>1<i class="iconfont icon-hao"></i></span>
-                                </div>
-                                <div class="add_delect">
-                                    <span>移除关注</span>
-                                    |
-                                    <span>删除</span>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="bottomBox">
-                            <li>
-                                <span class="bottom_l">促销</span>
-                                <span class="bottom_c">满199元加65元可换购商品</span>
-                                <span class="bottom_r">3个可选<i class="iconfont icon-down-trangle"></i></span>
-                            </li>
-                            <li>
-                                <span class="bottom_l">服务</span>
-                                <span class="bottom_c">选择增值服务(包含礼品服务)</span>
-                                <span class="bottom_r"><i class="iconfont icon-jiantou-right"></i></span>
-                            </li>
-                        </ul>
-                    </div>
-                                        <div class="listItem">
-                        <div class="top">
-                            <i class="iconfont icon-search"></i>
-                            <span class="top_price">购满199元，可用优惠券换购商品</span>
-                            <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
-                        </div>
-                        <div class="content">
-                            <div class="content_l">
-                                <span><i class="iconfont icon-xuanzhong xuanzhong"></i></span>
+                                <span><i class="iconfont icon-xuanzhong xuanzhong"  v-show="!goodsactive" @click.stop.prevent="chooseOne(1,1)"></i></span>
+                                <span><i class="iconfont icon-xuanzhong1 xuanzhong"  v-show="goodsactive" @click.stop.prevent="chooseOne(0,1)"></i></span>
                                 <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
                             </div>
                             <div class="content_r">
@@ -156,6 +120,21 @@
                         </div>
                     </div>
                 </div>
+                <div class="fixBar_allEdult" v-show="allEditor">
+                    <div class="fixBar_allEdult_box">
+                        <div class="fixBar_l">
+                            <i class="iconfont icon-xuanzhong"></i><span>全选</span>
+                        </div>
+                        <div class="fixBar_r">
+                            <div class="fixBar_rl">
+                                <span>移至收藏</span>
+                            </div>
+                            <div class="fixBar_rr">
+                                <span>删除</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="moreYouWant"></div>
             <div class="moregoods"></div>
@@ -172,9 +151,14 @@ import {Scroller, XHeader, XAddress, ChinaAddressV4Data} from 'vux'
 export default {
     data(){
         return{
+            allEditor: 0,
             showAddress: false,
             addressData: ChinaAddressV4Data,
-            // value      : '请输入地址',
+            // value: '请输入地址',
+            carList:[1],
+            active:0,
+            goodsactive:0,
+            // showDelect:0,
         }
     },
     components: {
@@ -185,14 +169,41 @@ export default {
     methods:{
         selectaddress(){
             this.showAddress = true;
+        },
+        chooseCom(choose){
+            this.active=choose;
+            this.goodsactive=choose;
+        },
+        editorAll(){
+            this.allEditor=!this.allEditor
+        },
+        chooseOne(choose,goods){
+            this.goodsactive= choose
+        },
+        getCartList(url,str){
+             return new Promise((resolve, reject) => {
+             let strArrParam = JSON.parse(str)
+             axios.get(url,{ params : {
+               params: strArrParam
+             }})
+               .then(response => {
+                 resolve(response);
+               })
+               .catch((error) => {
+                 reject(error)
+               })
+            })
         }
+    },
+    mounted:{
+        // getCartList()
     }
 }
 </script>
 <style lang="less" scoped>
 .shopcar_box{
-    overflow-y    : scroll;
-    overflow      : hidden;
+    overflow-y: scroll;
+    overflow: hidden;
     padding-bottom: 50px;
 }
 .address{
@@ -220,6 +231,10 @@ export default {
                 .head{
                     .icon-xuanzhong{
                         font-size: 20px;
+                    }
+                    .icon-xuanzhong1{
+                        font-size: 20px;
+                        color: #ff3742;
                     }
                     span{
                         padding-left: 5px;
@@ -262,10 +277,12 @@ export default {
                             position: relative;
                             .xuanzhong{
                             position : absolute;
-                            top      : 30px;
+                            top      : -50px;
                             font-size: 20px;
                         }
-
+                    .icon-xuanzhong1{
+                        color: #ff3742;
+                    }
                         }
                         .showyou{
                             height      : 75px;
@@ -377,12 +394,12 @@ export default {
             bottom          : 0;
             left            : 0;
             padding-left    : 10px;
-            padding-top     : 5px;
             box-sizing      : border-box;
             // line-height: 50px;
             .fixBar_l{
                 float     : left;
                 text-align: center;
+                padding-top:5px;
                 .icon-xuanzhong{
                     display  : block;
                     font-size: 20px;
@@ -397,6 +414,7 @@ export default {
                     // float: left;
                     position: absolute;
                     right   : 120px;
+                    padding-top: 5px;
                     .fix_lt{
                         float: right;
                         .fix_lt_number{
@@ -437,6 +455,58 @@ export default {
                 }
             }
         }
+        .fixBar_allEdult{
+            .fixBar_allEdult_box{
+                height          : 50px;
+                width           : 100%;
+                background-color: #f3f3f3;
+                position        : fixed;
+                bottom          : 0;
+                left            : 0;
+                padding-left    : 10px;
+                box-sizing      : border-box;
+                .fixBar_l{
+                float     : left;
+                text-align: center;
+                padding-top:5px;
+                .icon-xuanzhong{
+                    display  : block;
+                    font-size: 20px;
+                }
+                span{
+                    color: #999;
+                }
+                }
+                .fixBar_r{
+                    float: right;
+                    .fixBar_rl{
+                        float: left;
+                        background-color: #ff9600;
+                        height: 50px;
+                        width: 110px;
+                        text-align: center;
+                        line-height: 50px;
+                        color: #fff;
+                        font-size: 16px;
+                        font-weight: 700;
+
+                    }
+                    .fixBar_rr{
+                    float           : right;
+                    background-color: #ff3742;
+                    height          : 50px;
+                    width           : 110px;
+                    text-align      : center;
+                    line-height     : 50px;
+                    color           : #fff;
+                    font-weight     : 700;
+                    font-size       : 16px;
+                    }
+                }
+            
+            }
+        }
     }
 }
+ @import "../../style/common.less";
 </style>
