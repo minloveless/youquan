@@ -8,8 +8,24 @@ import './assets/iconfont/iconfont.css'
 // Vue.prototype.common=commons;
 import axios from 'axios';
 import vueAxios from 'vue-axios'
-Vue.use(vueAxios,axios)
+import VueLazyload from 'vue-lazyload'
 
+
+
+
+Vue.use(vueAxios,axios)
+Vue.use(VueLazyload);
+//自定义使用
+// Vue.use(VueLazyload, {
+//   preLoad: 1.3,
+//   error: 'dist/error.png',
+//   loading: 'dist/loading.gif',
+//   attempt: 1
+
+
+
+
+axios.defaults.baseURL='/api';
 Vue.config.productionTip = false
 
 import { AlertPlugin,ToastPlugin} from 'vux'
@@ -17,8 +33,6 @@ import { AlertPlugin,ToastPlugin} from 'vux'
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
 /* eslint-disable no-new */
-
-
 
 //去登陆
 router.beforeEach((to, from, next) => {

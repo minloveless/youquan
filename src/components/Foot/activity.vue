@@ -50,8 +50,9 @@
                 </ul>
             </div>
             <div class="oneshopping">
-                <div>
-                    <img src="https://img11.360buyimg.com/mcoss/jfs/t29287/268/192502907/98295/4810ffbb/5beaa43dNd89aee1b.gif" alt="">
+                <div class="hotMovie" @click="goDetail">
+                    <div class="top">热门电影<i class="iconfont icon-jiantou-right"></i></div>
+                    <div class="movie_box"><img src="https://img3.doubanio.com/view/dale-online/dale_ad/public/4006a7ccd780b79.jpg" alt=""></div>
                 </div>
             </div>
             <div class="everydayshop">
@@ -91,6 +92,9 @@ export default {
             toSearch(){
                 this.$router.push({path:"/search"})
             },
+            goDetail(){
+                this.$router.push({path:"/hotMovie"})
+            }
     }
 }
 </script>
@@ -155,6 +159,34 @@ export default {
     }
 }
 .oneshopping{
+    margin-bottom: 10px;
+    .hotMovie{
+        // margin: 10px 0;
+        background-color: #f3f3f3;
+        padding-bottom: 10px;
+        .top{
+            height: 30px;
+            width: 100%;
+            line-height: 30px;
+            color: #666;
+            padding-left: 5px;
+            .icon-jiantou-right{
+                float: right;
+                font-size: 12px;
+                margin-right: 10px;
+            }
+        }
+        .movie_box{
+            margin-left: 18px;
+            height: 80px;
+            width: 90%;
+            img{
+                height: 100%;
+            }
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    }
     img{
         width: 100%;
         height: 100%;

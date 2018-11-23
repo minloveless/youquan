@@ -31,5 +31,11 @@ export default new Router({
     {
       path: '/search', meta: {title:'搜索'}, component: function (resolve) {require(['../components/search.vue'], resolve)},
     },
+    {
+      path: '/hotMovie', meta: {title:'热门电影'}, component: function (resolve) {require(['../components/activity/hotMovie.vue'], resolve)},
+    },
+    {
+      path: '/movieDetail', meta: {title:'电影详情'}, component: function (resolve) {require(['../components/activity/movieDetail.vue'], resolve)},
+    },
   ]
 })
