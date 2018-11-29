@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 
 const state = {
-  count: 0
+  count: 2,
 }
 
 const getters = {

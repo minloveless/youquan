@@ -1,5 +1,6 @@
 <template>
     <div class="zaidibu">
+      <div class="circle">{{$store.state.count}}</div>
       <tabbar>
         <tabbar-item selected  link="/indexhome" >
           <i slot="icon" class="iconfont icon-yemian-copy-copy"></i>
@@ -95,5 +96,24 @@
 }
 </script>
 <style lang="less" scoped>
+.zaidibu{
+  // position: relative;
+  .circle{
+        height: 15px;
+        line-height: 15px;
+        width: 13px;
+        background-color: #ff3742;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        border: 1px solid #fff;
+        position: absolute;
+        right: 95px;
+        bottom:33px;
+        z-index: 1001;
+  }
+}
 </style>
 

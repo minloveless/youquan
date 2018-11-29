@@ -34,7 +34,7 @@
                                 <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
                                 <div class="goods_number">
                                     <span class="price">￥1199.00</span>
-                                    <span class="number"><i class="iconfont icon--hao"></i>1<i class="iconfont icon-hao"></i></span>
+                                    <span class="number"><i class="iconfont icon--hao" @click="reduce"></i>1<i class="iconfont icon-hao" @click.stop="add"></i></span>
                                 </div>
                                 <div class="add_delect">
                                     <span>移除关注</span>
@@ -115,7 +115,7 @@
                             </div>
                             <div class="fixBar_rr">
                                 <span>去结算</span>
-                                <span class="all_number">（3件）</span>
+                                <span class="all_number">（{{$store.state.count}}件）</span>
                             </div>
                         </div>
                     </div>
@@ -196,6 +196,12 @@ export default {
         },
         goDetail(id){
             this.$router.push({path:'/productDetail',query:{id:id}})
+        },
+        add(){
+            this.$store.commit("increment")
+        },
+        reduce(){
+
         }
     },
     mounted:{
