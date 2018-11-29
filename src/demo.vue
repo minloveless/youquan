@@ -10,6 +10,14 @@
 </template>
 
 <script>
+    // var fly =require("flyio")
+    // fly.get('http://api.douban.com/v2/movie/in_theaters')
+    //     .then(function(res){
+    //         console.log(res)
+    //     })
+    //     .catch(function(error){
+    //         console.log(error)
+    //     })
     export default {
         data(){
             return {

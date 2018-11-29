@@ -46,6 +46,7 @@
       return{
         details:'',
         imgs:'',
+        count:1,
         // large:
       }
     },
@@ -71,6 +72,8 @@
             that.details = res.data
             that.imgs = res.data.images
             console.log(that.details)
+            this.$store.commit('increment')
+            console.log(this.$store.state.count)
           })
           .catch(error => {
             console.log(error)
@@ -97,6 +100,7 @@
 .poster{
   text-align: center;
   padding-top: 10px;
+  height:383px;
   // img{
   //   height: 100%;
   //   width: 100%;

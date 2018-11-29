@@ -1,5 +1,6 @@
 <template>
   <div class="APP">
+      <!-- <down-tip></down-tip> -->
       <router-view></router-view>
       <alert v-model="showAlert" title="温馨提示">{{alertMsg}}</alert>
   </div>
@@ -8,7 +9,7 @@
 <script>
 import './style/flexible.css'
 // import foot from "./components/foot.vue"
-// import downTip from "./demo.vue"
+import downTip from "./demo.vue"
 import { Alert } from 'vux'
 // import { Toast } from 'vux'
 export default {
@@ -21,7 +22,7 @@ export default {
   components: {
      Alert,
     //  Toast,
-    //  downTip,
+     downTip,
      
      
   },

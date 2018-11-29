@@ -17,7 +17,7 @@
                             <div>优惠券</div>
                         </div>
                     </div>
-                    <div class="listItem">
+                    <div class="listItem" @click="goDetail(1)">
                         <div class="top">
                             <i class="iconfont icon-dianpu"></i>
                             <span class="top_price">购满199元，可用优惠券换购商品</span>
@@ -193,6 +193,9 @@ export default {
                  reject(error)
                })
             })
+        },
+        goDetail(id){
+            this.$router.push({path:'/productDetail',query:{id:id}})
         }
     },
     mounted:{

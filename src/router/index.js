@@ -37,5 +37,8 @@ export default new Router({
     {
       path: '/movieDetail', meta: {title:'电影详情'}, component: function (resolve) {require(['../components/activity/movieDetail.vue'], resolve)},
     },
+    {
+      path: '/productDetail', meta: {title:'商品详情'}, component: function (resolve) {require(['../components/product/productDetail/productDetail.vue'], resolve)},
+    },
   ]
 })
