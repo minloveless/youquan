@@ -9,7 +9,7 @@
             </form>
             <button>搜索</button>
         </div>
-        <div class="search_show">
+        <div class="search_show" v-if="false">
             <span>热门搜索</span>
             <ul>
                 <li>西蒙子烤箱</li>
@@ -26,19 +26,23 @@
     export default{
         data(){
             return{
-
+                // keyWords:'',
             }
         },
+        // props:{
+        //     keyWord:Number,
+        // },
         methods:{
             backhome(){
                 this.$router.go(-1);
-            }
+            },
         }
     }
 </script>
-<style lang="less" >
+<style lang="less">
 .search_container {
     position: fixed;
+    z-index: 99;
     width: 100%;
     height: 40px;
     background-color: #fff;

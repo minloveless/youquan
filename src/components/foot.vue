@@ -1,6 +1,6 @@
 <template>
     <div class="zaidibu">
-      <div class="circle">{{$store.state.count}}</div>
+      <div class="circle">{{$store.getters.getAllCount}}</div>
       <tabbar>
         <tabbar-item selected  link="/indexhome" >
           <i slot="icon" class="iconfont icon-yemian-copy-copy"></i>
@@ -101,11 +101,12 @@
   .circle{
         height: 15px;
         line-height: 15px;
-        width: 13px;
+        // width: 13px;
         background-color: #ff3742;
         border-radius: 8px;
         color: #fff;
-        font-size: 14px;
+        padding: 1px;
+        font-size: 12px;
         font-weight: 700;
         text-align: center;
         border: 1px solid #fff;

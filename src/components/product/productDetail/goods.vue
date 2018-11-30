@@ -65,10 +65,27 @@
 <script>
   import { Swiper, SwiperItem} from 'vux'
   export default {
+    data(){
+      return {
+        obj:{
+          id:1,
+          price:666,
+          counts:1,
+        }
+      }
+    },
     components:{
       Swiper,
       SwiperItem,
-    }
+    },
+    methods:{
+      sendToDetail(){
+        this.$emit('goodsNews',this.obj)
+      }
+    },
+    created(){
+      this.sendToDetail();
+    },
   }
 </script>
 <style lang="less" scoped>

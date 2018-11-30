@@ -1,15 +1,15 @@
 <template>
   <div class="bannerOne">
     <topBar></topBar>
-    <goods></goods>
+    <goods @goodsNews="goodsNews"></goods>
     <comment></comment>
     <tuwen></tuwen>
     <recommend></recommend>
     <div class="shopping">
       <div class="contact"><i class="iconfont icon-kefu"></i><span>联系客服</span></div>
       <div class="shop"><i class="iconfont icon-dianpu"></i><span>进店</span></div>
-      <div class="shopcar"><div class="circle">{{$store.state.count}}</div><i class="iconfont icon-gouwuche"></i><span>购物车</span></div>
-      <div class="addShopcar">加入购物车</div>
+      <div class="shopcar" @click="goShopCar"><div class="circle">{{$store.getters.getAllCount}}</div><i class="iconfont icon-gouwuche"></i><span>购物车</span></div>
+      <div class="addShopcar" @click="addToShopCar">加入购物车</div>
       <div class="buyNow">立即购买</div>
     </div>
   </div>
@@ -21,18 +21,41 @@ import comment from './comment'
 import tuwen from './/tuwen'
 import recommend from './recommend'
   export default{
+    data(){
+      return{
+        goodsPrice:'',
+        id:'',
+        counts:'',
+      }
+    },
     components:{
       topBar,
       goods,
       comment,
-     tuwen,
+      tuwen,
       recommend
     },
     methods:{
-      // goAnchor(selector, index) {
-      //   this.activeBtn = index;
-      //   this.$el.querySelector(selector).scrollIntoView()
-      // }
+      addToShopCar(){
+        //添加到购物车
+        var goodsinfo = {
+          id: this.id,
+          price: this.goodsPrice,
+          counts: this.counts
+        }
+        this.$store.commit("addToCar",goodsinfo);
+      },
+      goodsNews(data){
+        this.goodsPrice = data.price
+        console.log(this.goodsPrice)
+        this.id = data.id
+        console.log(this.id)
+        this.counts = data.counts
+        console.log(this.counts)
+      },
+      goShopCar(){
+        this.$router.push({path:'/shopcar'})
+      }
     }
   }
 </script>

@@ -8,22 +8,24 @@
         </div>
         <div class="youjuan_showList">
             <div class="showList_box">
-                <div class="listContent">
+                <div class="listContent" v-for="(item,index) in itemList" :key="index">
+                    <!-- 头部 -->
                     <div class="head_wrap">
                         <div class="head">
                             <i class="iconfont icon-xuanzhong" v-show="!active" @click.stop.prevent="chooseCom(1)"></i>
                             <i class="iconfont icon-xuanzhong1" v-show="active" @click.stop.prevent="chooseCom(0)"></i>
-                            <span>有券良品</span>
+                            <span>{{item.title}}</span>
                             <div>优惠券</div>
                         </div>
                     </div>
-                    <div class="listItem" @click="goDetail(1)">
+                    <!-- 内容 -->
+                    <div class="listItem" v-for="(items,index) in item.goods_list" :key="index">
                         <div class="top">
                             <i class="iconfont icon-dianpu"></i>
                             <span class="top_price">购满199元，可用优惠券换购商品</span>
                             <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
                         </div>
-                        <div class="content">
+                        <div class="content" @click="goDetail(1)">
                             <div class="content_l">
                                 <span><i class="iconfont icon-xuanzhong xuanzhong"  v-show="!goodsactive" @click.stop.prevent="chooseOne(1,0)"></i></span>
                                 <span><i class="iconfont icon-xuanzhong1 xuanzhong"  v-show="goodsactive" @click.stop.prevent="chooseOne(0,0)"></i></span>
@@ -33,8 +35,8 @@
                                 <div class="goods_title">Apple AirPods 蓝牙无线耳机</div>
                                 <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
                                 <div class="goods_number">
-                                    <span class="price">￥1199.00</span>
-                                    <span class="number"><i class="iconfont icon--hao" @click="reduce"></i>1<i class="iconfont icon-hao" @click.stop="add"></i></span>
+                                    <span class="price">￥{{items.price}}</span>
+                                    <span class="number"><i class="iconfont icon--hao" @click.stop.prevent="reduce"></i>{{$store.getters.getgoodscount[item.id]}}<i class="iconfont icon-hao" @click.stop.prevent="add"></i></span>
                                 </div>
                                 <div class="add_delect">
                                     <span>移除关注</span>
@@ -55,47 +57,7 @@
                                 <span class="bottom_r"><i class="iconfont icon-jiantou-right"></i></span>
                             </li>
                         </ul>
-                    </div>
-                    <div class="listItem">
-                        <div class="top">
-                            <i class="iconfont icon-dianpu"></i>
-                            <span class="top_price">购满199元，可用优惠券换购商品</span>
-                            <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
-                        </div>
-                        <div class="content">
-                            <div class="content_l">
-                                <span><i class="iconfont icon-xuanzhong xuanzhong"  v-show="!goodsactive" @click.stop.prevent="chooseOne(1,1)"></i></span>
-                                <span><i class="iconfont icon-xuanzhong1 xuanzhong"  v-show="goodsactive" @click.stop.prevent="chooseOne(0,1)"></i></span>
-                                <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
-                            </div>
-                            <div class="content_r">
-                                <div class="goods_title">Apple AirPods 蓝牙无线耳机</div>
-                                <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
-                                <div class="goods_number">
-                                    <span class="price">￥1199.00</span>
-                                    <span class="number"><i class="iconfont icon--hao"></i>1<i class="iconfont icon-hao"></i></span>
-                                </div>
-                                <div class="add_delect">
-                                    <span>移除关注</span>
-                                    |
-                                    <span>删除</span>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="bottomBox">
-                            <li>
-                                <span class="bottom_l">促销</span>
-                                <span class="bottom_c">满199元加65元可换购商品</span>
-                                <span class="bottom_r">3个可选<i class="iconfont icon-down-trangle"></i></span>
-                            </li>
-                            <li>
-                                <span class="bottom_l">服务</span>
-                                <span class="bottom_c">选择增值服务(包含礼品服务)</span>
-                                <span class="bottom_r"><i class="iconfont icon-jiantou-right"></i></span>
-                            </li>
-                        </ul>
-                    </div>
-                    
+                    </div>      
                 </div>
                 <div class="fixBar">
                     <div class="fixBar_box">
@@ -115,7 +77,7 @@
                             </div>
                             <div class="fixBar_rr">
                                 <span>去结算</span>
-                                <span class="all_number">（{{$store.state.count}}件）</span>
+                                <span class="all_number">（{{$store.getters.getAllCount}}件）</span>
                             </div>
                         </div>
                     </div>
@@ -159,6 +121,44 @@ export default {
             active:0,
             goodsactive:0,
             // showDelect:0,
+            itemList: [
+                  {
+                    id:1,
+                    title:'有券良品',
+                    goods_list:[
+                        {
+                          id:1,
+                          price:1199.00,
+                        },
+                        {
+                          id:2,
+                          price:888.00,
+                        },
+                        {
+                          id:3,
+                          price:666.00,
+                        },
+                    ]
+                  },
+                  {
+                    id:2,
+                    title:'我的小店',
+                    goods_list:[
+                        {
+                          id:1,
+                          price:111.00,
+                        },
+                        {
+                          id:2,
+                          price:222.00,
+                        },
+                        {
+                          id:3,
+                          price:333.00,
+                        },
+                    ]
+                  },
+                ],
         }
     },
     components: {
@@ -180,20 +180,20 @@ export default {
         chooseOne(choose,goods){
             this.goodsactive= choose
         },
-        getCartList(url,str){
-             return new Promise((resolve, reject) => {
-             let strArrParam = JSON.parse(str)
-             axios.get(url,{ params : {
-               params: strArrParam
-             }})
-               .then(response => {
-                 resolve(response);
-               })
-               .catch((error) => {
-                 reject(error)
-               })
-            })
-        },
+        // getCartList(url,str){
+        //      return new Promise((resolve, reject) => {
+        //      let strArrParam = JSON.parse(str)
+        //      axios.get(url,{ params : {
+        //        params: strArrParam
+        //      }})
+        //        .then(response => {
+        //          resolve(response);
+        //        })
+        //        .catch((error) => {
+        //          reject(error)
+        //        })
+        //     })
+        // },
         goDetail(id){
             this.$router.push({path:'/productDetail',query:{id:id}})
         },
@@ -201,12 +201,12 @@ export default {
             this.$store.commit("increment")
         },
         reduce(){
-
+            this.$store.commit("subtract")
         }
     },
-    mounted:{
-        // getCartList()
-    }
+    // mounted:{
+    //     // getCartList()
+    // }
 }
 </script>
 <style lang="less" scoped>
