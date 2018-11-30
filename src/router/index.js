@@ -43,5 +43,8 @@ export default new Router({
     {
       path: '/producSeachtList', meta: {title:'商品列表'}, component: function (resolve) {require(['../components/product/producSeachtList.vue'], resolve)},
     },
+    {
+      path: '/area', meta: {title:'商品列表'}, component: function (resolve) {require(['../components/shopCar/area.vue'], resolve)},
+    },
   ]
 })

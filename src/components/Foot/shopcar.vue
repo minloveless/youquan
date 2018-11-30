@@ -102,20 +102,26 @@
             <div class="moregoods"></div>
         </div>
 
+        <area-own :showArea="showArea" :areaList="areaList" @chooseArea="chooseArea" :defaultArea="defaultArea" @closeArea="closeArea"></area-own>
 
 
-
-        <x-address style="display:none;" title="title" :list="addressData" placeholder="请选择地址" :show.sync="showAddress"></x-address>
+       
     </div>
 </template>
 <script>
 import {Scroller, XHeader, XAddress, ChinaAddressV4Data} from 'vux'
+import areaOwn from '../shopCar/area'
 export default {
     data(){
         return{
+
             allEditor: 0,
-            showAddress: false,
-            addressData: ChinaAddressV4Data,
+            showArea: true,
+            areaList:[],
+            defaultArea:[],
+            province_id:0,
+            city_id:0,
+            area_id:0,
             // value: '请输入地址',
             carList:[1],
             active:0,
@@ -165,6 +171,7 @@ export default {
         Scroller,
         XHeader,
         XAddress,
+        areaOwn
     },
     methods:{
         selectaddress(){
@@ -202,7 +209,22 @@ export default {
         },
         reduce(){
             this.$store.commit("subtract")
-        }
+        },
+        chooseArea(val){
+            this.provinces = val.select1.text +" "+ val.select2.text +" "+ val.select3.text;
+            this.province_id = val.select1.value;
+            this.city_id = val.select2.value;
+            this.area_id = val.select3.value;
+            this.showArea = false;
+        },
+        showAreaFn (){
+            if(!this.showArea&&this.areaList.length){
+                this.showArea = true;
+            }
+        },
+        closeArea (){
+            this.showArea = false;
+        },
     },
     // mounted:{
     //     // getCartList()
