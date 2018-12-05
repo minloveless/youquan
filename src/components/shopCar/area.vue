@@ -1,176 +1,72 @@
 <template>
   <div>
-    <button @click="toshow">1111111111111111</button>
     <vue-pickers
-      :show = "showArea"
-      :link = "link"
-      :columns = "columns"
-      :defaultData = "defaultArea"
-      :selectData = "selectData"
-      @cancle = "close"
-      @confirm = "confirmFn"></vue-pickers>
+      :show="showArea"
+      :link="link"
+      :columns="columns"
+      :selectData="pickData"
+      @cancel="close"
+      @confirm="confirmFn"></vue-pickers>
   </div>
 </template>
+
 <script>
-  import vuePickers from 'vue-pickers'
-  export default {
-    data(){
-      return {
-        showArea:true,
-        columns: 3,
-        link: true,
-        selectData: {
-          pData1:[
-            {
-               text: 1999,
-               value: 1999
-            },
-             {
-               text: 2001,
-               value: 2001
-             },
-             {
-               text: 2002,
-               value: 2002
-             },
-             {
-               text: 2003,
-               value: 2003
-             },
-             {
-               text: 2004,
-               value: 2004
-             },
-             {
-               text: 2005,
-               value: 2005
-             },
-          ],
-          pData2:[
-            {
-               text: 1999,
-               value: 1999
-            },
-             {
-               text: 2001,
-               value: 2001
-             },
-             {
-               text: 2002,
-               value: 2002
-             },
-             {
-               text: 2003,
-               value: 2003
-             },
-             {
-               text: 2004,
-               value: 2004
-             },
-             {
-               text: 2005,
-               value: 2005
-             },
-          ],
-          pData3:[
-            {
-               text: 1999,
-               value: 1999
-            },
-             {
-               text: 2001,
-               value: 2001
-             },
-             {
-               text: 2002,
-               value: 2002
-             },
-             {
-               text: 2003,
-               value: 2003
-             },
-             {
-               text: 2004,
-               value: 2004
-             },
-             {
-               text: 2005,
-               value: 2005
-             },
-          ],
-        },
-        res: "",
-        defaultArea: [
-          {
-            text:'省',
-            value:'江西省'
-          },
-          {
-            text:'市',
-            value:'南昌市'
-          },{
-            text:'区',
-            value:'南昌县'
-          },
-        ],
-      }
-    },
-    // props: {
-    //   showArea: {
-    //     default:true
-    //   },
-    //   areaList:{},
-    //   defaultArea:{},
-    // },
-    components: {
-      vuePickers,
-    },
-    methods:{
-      toshow(){
-        this.showArea= !this.showArea
-      },
-      close(){
-        this.$emit("closeArea","")
-      },
-      confirmFn(){
-        this.$emit("chooseArea",val)
+import vuePickers from 'vue-pickers'
+import {provs_data, citys_data, dists_data} from 'vue-pickers/lib/areaData'
+export default {
+  components: {
+    vuePickers
+  },
+  data() {
+    return {
+      isCopy: '',
+      res: null,
+      // show: false,
+      columns: 3,
+      link: true,
+      pickData: {
+        data1: provs_data,
+        data2: citys_data,
+        data3: dists_data
       }
     }
+  },
+  props:{
+    showArea:{
+      default:false,
+    }
+  },
+  methods: {
+    close() {
+      this.$emit("closeArea","")
+    },
+    confirmFn(val) {
+      // this.show = false
+      // console.log(val)
+      // this.res = val
+      // this.pickData.default = [val.select1, val.select2, val.select3]
+      this.$emit("chooseArea",val)
+    },
+    toShow() {
+      this.show = true
+    }
   }
+}
 </script>
-<style lang="less" scoped>
+
+<style>
 .btnbox{
   display: flex;
-  display: -webkit-flex;
   justify-content: center;
 }
 .btn{
+  background: #2e68fa;
   color: #fff;
   padding: 5px 10px;
   display: inline-block;
   margin: 0 10px;
-  font-size: 0.37rem;
+  font-size: 14px;
   border-radius: 4px;
-}
-#h-picker .area_ctrl{
-    background: #FFFFFF;
-}
-#h-picker .area_btn.larea_cancel{
-  color: #333333 !important;
-  font-size: .4rem
-}
-#h-picker .area_btn.larea_finish{
-  color: #FF3742 !important;
-  font-size: .4rem;
-}
-#h-picker .area_roll{
-    background: #FFFFFF; 
-}
-#h-picker .area_btn_box{
-    background: #FFFFFF; 
-}
-#h-picker .area_roll_mask{
-    background: #FFFFFF; 
 }
 .result{
   text-align: center;
@@ -181,21 +77,5 @@
   border: 1px dashed red;
   text-align: center
 }
-.area_btn_box{
-    display: flex;
-    display: -webkit-flex;
-}
-.area_roll{
-    display: flex;
-    display: -webkit-flex;
-}
-#h-picker .area_roll>div{
-    flex:1;
-    -webkit-flex: 1;
-    background: #FFFFFF;
-}
-.tooth{
-     display: flex;
-    display: -webkit-flex;
-}
 </style>
+

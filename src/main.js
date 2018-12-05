@@ -11,7 +11,7 @@ import vueAxios from 'vue-axios'
 import VueLazyload from 'vue-lazyload'
 import store from './vuex/store'
 
-
+var car = JSON.parse(localStorage.getItem('car') || '[]')
 
 
 Vue.use(vueAxios,axios)

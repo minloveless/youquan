@@ -8,7 +8,7 @@
     <div class="shopping">
       <div class="contact"><i class="iconfont icon-kefu"></i><span>联系客服</span></div>
       <div class="shop"><i class="iconfont icon-dianpu"></i><span>进店</span></div>
-      <div class="shopcar" @click="goShopCar"><div class="circle">{{$store.getters.getAllCount}}</div><i class="iconfont icon-gouwuche"></i><span>购物车</span></div>
+      <div class="shopcar" @click="goShopCar"><div class="circle" v-show="$store.getters.getAllCount">{{$store.getters.getAllCount}}</div><i class="iconfont icon-gouwuche"></i><span>购物车</span></div>
       <div class="addShopcar" @click="addToShopCar">加入购物车</div>
       <div class="buyNow">立即购买</div>
     </div>
@@ -20,11 +20,12 @@ import goods from './goods'
 import comment from './comment'
 import tuwen from './/tuwen'
 import recommend from './recommend'
+import {mapActions} from 'vuex'
   export default{
     data(){
       return{
         goodsPrice:'',
-        id:'',
+        id: '',
         counts:'',
       }
     },
@@ -55,7 +56,8 @@ import recommend from './recommend'
       },
       goShopCar(){
         this.$router.push({path:'/shopcar'})
-      }
+      },
+      ...mapActions(["addToCar"]),
     }
   }
 </script>
@@ -113,11 +115,10 @@ import recommend from './recommend'
       .circle{
         height: 12px;
         line-height: 12px;
-        width: 12px;
         background-color: #ff3742;
         border-radius: 8px;
         color: #fff;
-        font-size: 7px;
+        font-size: 10px;
         font-weight: 700;
         text-align: center;
         border: 1px solid #fff;

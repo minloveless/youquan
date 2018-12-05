@@ -80,7 +80,7 @@
                 border: none;
                 outline: none;
                 -webkit-appearance: none;
-                background-color: rgba(0, 0, 0, 0.1);
+                background-color: #f7f7f7;
                 margin-top: 5px;
                 padding-left:10px;
                 // text-align: center;
@@ -90,7 +90,7 @@
             position: absolute;
             right: 8px;
             top: 8px;
-            background-color: cyan;
+            background-color: #ccc;
             border: none;
             outline: none;
             -webkit-appearance: none;

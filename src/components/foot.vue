@@ -99,20 +99,20 @@
 .zaidibu{
   // position: relative;
   .circle{
-        height: 15px;
-        line-height: 15px;
+        height: 12px;
+        line-height: 12px;
         // width: 13px;
         background-color: #ff3742;
         border-radius: 8px;
         color: #fff;
         padding: 1px;
-        font-size: 12px;
+        font-size: 10px;
         font-weight: 700;
         text-align: center;
         border: 1px solid #fff;
         position: absolute;
         right: 95px;
-        bottom:33px;
+        bottom:30px;
         z-index: 1001;
   }
 }

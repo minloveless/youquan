@@ -23,7 +23,7 @@
       <div class="seachList">
         <div class="searchListBox" v-for="(item,index) in searchList" :key="index" @click="toProductDetail(item.id)">
           <div class="lf">
-            <img :src="item.url" alt="">
+            <img src="https://img14.360buyimg.com/mobilecms/s316x316_jfs/t17665/190/2499640910/209789/1b439bbd/5afc0ae1N4f34d0fc.jpg!q70.dpg.webp" alt="">
           </div>
           <div class="rf">
             <div class="title">{{item.title}}</div>
@@ -41,52 +41,12 @@
 </template>
 <script>
   import search from '../search.vue'
+  import axios from 'axios'
   export default {
     data(){
       return {
         id: this.$route.query.id,
-        searchList:[
-          {
-            id:1,
-            url:'https://img14.360buyimg.com/mobilecms/s316x316_jfs/t17665/190/2499640910/209789/1b439bbd/5afc0ae1N4f34d0fc.jpg!q70.dpg.webp',
-            title:'荣耀 畅玩7 2GB+16GB 金色 全网通4G手机 双卡双待',
-            fautures:['4GB','64GB','5.84英寸'],
-            price:1188.00,
-            comment:'101',
-          },
-          {
-            id:2,
-            url:'https://img13.360buyimg.com/mobilecms/s316x316_jfs/t10675/253/1344769770/66891/92d54ca4/59df2e7fN86c99a27.jpg!q70.dpg.webp',
-            title:'荣耀 畅玩7 2GB+16GB 金色 全网通4G手机 双卡双待',
-            fautures:['4GB','64GB','5.84英寸'],
-            price:1188.00,
-            comment:'101',
-          },
-          {
-            id:3,
-            url:'https://img13.360buyimg.com/mobilecms/s316x316_jfs/t22519/185/2357218296/213888/ff5e9aa3/5b7bd314N6db24355.jpg!q70.dpg.webp',
-            title:'荣耀 畅玩7 2GB+16GB 金色 全网通4G手机 双卡双待',
-            fautures:['4GB','64GB','5.84英寸'],
-            price:1188.00,
-            comment:'101',
-          },
-          {
-            id:4,
-            url:'https://img13.360buyimg.com/mobilecms/s316x316_jfs/t4894/345/2426573341/236389/f4e04f62/59000294Ncfd9f9ee.jpg!q70.dpg.webp',
-            title:'荣耀 畅玩7 2GB+16GB 金色 全网通4G手机 双卡双待',
-            fautures:['4GB','64GB','5.84英寸'],
-            price:1188.00,
-            comment:'101',
-          },
-          {
-            id:5,
-            url:'https://img13.360buyimg.com/mobilecms/s316x316_jfs/t1/3/15/4536/138660/5b997bf8Ed72ebce7/819dcf182d743897.jpg!q70.dpg.webp',
-            title:'荣耀 畅玩7 2GB+16GB 金色 全网通4G手机 双卡双待',
-            fautures:['4GB','64GB','5.84英寸'],
-            price:1188.00,
-            comment:'101',
-          },
-        ],
+        searchList:[],
       }
     },
     components:{
@@ -95,7 +55,19 @@
     methods:{
       toProductDetail(arr){
         this.$router.push({path:'/productDetail',query:{arr:arr}})
+      },
+      getDetailsList(){
+        axios.get('/details/goodsList')
+        .then(res => {
+          this.searchList = res.data.searchList
+        })
+        .catch(err => {
+          console.log(err)
+        })
       }
+    },
+    mounted(){
+      this.getDetailsList()
     }
   }
 </script>
@@ -164,6 +136,8 @@
           }
           .fautures{
             padding-top: 3px;
+            width: 235px;
+            overflow: hidden;
             span{
               color: #ccc;
               margin-right: 10px;

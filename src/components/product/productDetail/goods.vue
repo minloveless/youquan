@@ -64,11 +64,12 @@
 </template>
 <script>
   import { Swiper, SwiperItem} from 'vux'
+  import axios from 'axios'
   export default {
     data(){
       return {
         obj:{
-          id:1,
+          id:this.$route.query.arr,
           price:666,
           counts:1,
         }

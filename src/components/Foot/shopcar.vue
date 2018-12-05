@@ -2,46 +2,49 @@
     <div class="shopcar_box">
         <x-header :left-options="{backText:''}"
         :right-options="{showMore:true}">购物车</x-header>
-        <div class="address" v-if="carList.length">
-            <span @click="selectaddress()"><i class="iconfont icon-dizhi"></i>请选择地址</span>
+        <div class="item_list">
+            <p v-if='!car.length'>空空如也，快去购物吧</p>
+        <div v-else>
+            <div class="address" v-if="car.length">
+            <span><i class="iconfont icon-dizhi"></i><input @click="selectaddress()" placeholder="请选择地址" :value="provinces"></span>
             <p @click="editorAll">{{allEditor?'完成':'编辑商品'}}</p>
         </div>
         <div class="youjuan_showList">
             <div class="showList_box">
-                <div class="listContent" v-for="(item,index) in itemList" :key="index">
+                <div class="listContent">
                     <!-- 头部 -->
                     <div class="head_wrap">
                         <div class="head">
                             <i class="iconfont icon-xuanzhong" v-show="!active" @click.stop.prevent="chooseCom(1)"></i>
                             <i class="iconfont icon-xuanzhong1" v-show="active" @click.stop.prevent="chooseCom(0)"></i>
-                            <span>{{item.title}}</span>
+                            <span>有券良品</span>
                             <div>优惠券</div>
                         </div>
                     </div>
                     <!-- 内容 -->
-                    <div class="listItem" v-for="(items,index) in item.goods_list" :key="index">
+                    <div class="listItem" v-for="(items,index) in car" :key="index" v-if="items.counts">
                         <div class="top">
                             <i class="iconfont icon-dianpu"></i>
                             <span class="top_price">购满199元，可用优惠券换购商品</span>
                             <span class="coudan">去凑单<i class="iconfont icon-jiantou-right"></i></span>
                         </div>
-                        <div class="content" @click="goDetail(1)">
+                        <div class="content">
                             <div class="content_l">
                                 <span><i class="iconfont icon-xuanzhong xuanzhong"  v-show="!goodsactive" @click.stop.prevent="chooseOne(1,0)"></i></span>
                                 <span><i class="iconfont icon-xuanzhong1 xuanzhong"  v-show="goodsactive" @click.stop.prevent="chooseOne(0,0)"></i></span>
-                                <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt="">
+                                <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt=""  @click="goDetail(items.id)">
                             </div>
                             <div class="content_r">
-                                <div class="goods_title">Apple AirPods 蓝牙无线耳机</div>
+                                <div class="goods_title"  @click="goDetail(items.id)">Apple AirPods 蓝牙无线耳机</div>
                                 <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
                                 <div class="goods_number">
                                     <span class="price">￥{{items.price}}</span>
-                                    <span class="number"><i class="iconfont icon--hao" @click.stop.prevent="reduce"></i>{{$store.getters.getgoodscount[item.id]}}<i class="iconfont icon-hao" @click.stop.prevent="add"></i></span>
+                                    <span class="number"><i class="iconfont icon--hao" @click.stop.prevent="reduce({id:items.id})"></i>{{$store.getters.getgoodscount[items.id]}}<i class="iconfont icon-hao" @click.stop.prevent="add({id:items.id})"></i></span>
                                 </div>
                                 <div class="add_delect">
                                     <span>移除关注</span>
                                     |
-                                    <span>删除</span>
+                                    <span  @click.stop.prevent="delect({id:items.id})">删除</span>
                                 </div>
                             </div>
                         </div>
@@ -68,10 +71,10 @@
                             <div class="fixBar_rl">
                                 <div class="fix_lt">
                                     <span class="fix_lt_number">总计：</span>
-                                    <span class="fix_lt_price">￥1155.00</span>
+                                    <span class="fix_lt_price">￥{{getAllMoney}}</span>
                                 </div>
                                 <div class="fix_lb">
-                                    <span>总额￥1155.00</span>
+                                    <span>总额￥{{getAllMoney}}</span>
                                     <span>立减￥0.00</span>
                                 </div>
                             </div>
@@ -101,70 +104,38 @@
             <div class="moreYouWant"></div>
             <div class="moregoods"></div>
         </div>
+            </div>
+        </div>
 
-        <area-own :showArea="showArea" :areaList="areaList" @chooseArea="chooseArea" :defaultArea="defaultArea" @closeArea="closeArea"></area-own>
+        <area-own :showArea="min" :areaList="areaList" @chooseArea="chooseArea" :defaultArea="defaultArea" @closeArea="closeArea"></area-own>
 
 
        
     </div>
 </template>
 <script>
+import {mapState,mapGetters} from 'vuex'
+import axios from 'axios'
 import {Scroller, XHeader, XAddress, ChinaAddressV4Data} from 'vux'
 import areaOwn from '../shopCar/area'
 export default {
     data(){
         return{
-
+            provinces:"",
             allEditor: 0,
-            showArea: true,
+            min: false,
             areaList:[],
             defaultArea:[],
             province_id:0,
             city_id:0,
             area_id:0,
             // value: '请输入地址',
-            carList:[1],
+            CarList: this.$store.state.car,
+            carList:[],
             active:0,
             goodsactive:0,
             // showDelect:0,
-            itemList: [
-                  {
-                    id:1,
-                    title:'有券良品',
-                    goods_list:[
-                        {
-                          id:1,
-                          price:1199.00,
-                        },
-                        {
-                          id:2,
-                          price:888.00,
-                        },
-                        {
-                          id:3,
-                          price:666.00,
-                        },
-                    ]
-                  },
-                  {
-                    id:2,
-                    title:'我的小店',
-                    goods_list:[
-                        {
-                          id:1,
-                          price:111.00,
-                        },
-                        {
-                          id:2,
-                          price:222.00,
-                        },
-                        {
-                          id:3,
-                          price:333.00,
-                        },
-                    ]
-                  },
-                ],
+            itemList: [],
         }
     },
     components: {
@@ -174,8 +145,20 @@ export default {
         areaOwn
     },
     methods:{
+        getGoodsList(){
+            axios.get('/shopcar/goodsList')
+            .then(res => {
+                console.log(res.data)
+                console.log(res.data.item_list)
+                this.itemList = res.data.item_list
+                console.log(this.itemList)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
         selectaddress(){
-            this.showAddress = true;
+            this.min = true;
         },
         chooseCom(choose){
             this.active=choose;
@@ -204,18 +187,21 @@ export default {
         goDetail(id){
             this.$router.push({path:'/productDetail',query:{id:id}})
         },
-        add(){
-            this.$store.commit("increment")
+        add(obj){
+            this.$store.commit("increment",obj)
         },
-        reduce(){
-            this.$store.commit("subtract")
+        reduce(obj){
+            this.$store.commit("subtract",obj)
+        },
+        delect(obj){
+            this.$store.commit("removeFormCut",obj)
         },
         chooseArea(val){
             this.provinces = val.select1.text +" "+ val.select2.text +" "+ val.select3.text;
             this.province_id = val.select1.value;
             this.city_id = val.select2.value;
             this.area_id = val.select3.value;
-            this.showArea = false;
+            this.min = false;
         },
         showAreaFn (){
             if(!this.showArea&&this.areaList.length){
@@ -223,12 +209,16 @@ export default {
             }
         },
         closeArea (){
-            this.showArea = false;
+            this.min = false;
         },
     },
-    // mounted:{
-    //     // getCartList()
-    // }
+    mounted(){
+         this.getGoodsList()
+    },
+    computed:{
+        ...mapState(['car']),
+        ...mapGetters(['getAllMoney'])
+    }
 }
 </script>
 <style lang="less" scoped>
@@ -247,6 +237,11 @@ export default {
         float    : left;
         color    : #ccc;
         font-size: 14px;
+        input{
+            border: none;
+            padding-left:5px;
+            color: #666;
+        }
     }
     p{
         float    : right;
@@ -448,6 +443,9 @@ export default {
                     padding-top: 5px;
                     .fix_lt{
                         float: right;
+                        // overflow: hidden;
+                        width:255px;
+                        text-align: right;
                         .fix_lt_number{
                             font-weight: 700;
                             font-size  : 16px;
@@ -460,8 +458,9 @@ export default {
                         }
                     }
                     .fix_lb{
+                        display: block;
                         float      : right;
-                        padding-top: 2px;
+                        padding-top: 5px;
                         color      : #999;
                     }
 

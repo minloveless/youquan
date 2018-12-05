@@ -5,7 +5,6 @@ Vue.use(Vuex);
 
 var car = JSON.parse(localStorage.getItem('car') || '[]')
 const state = {
-  count: 2,
   car: car,
 }
 
@@ -23,17 +22,43 @@ const getters = {
       goodscount[item.id] = item.counts
     })
     return goodscount
+  },
+  getAllMoney(state){
+    let money = 0;
+    state.car.forEach(item => {
+      money += item.price*item.counts
+    })
+    return money;
   }
 }
 
 const mutations = {
-  increment (state) {
-    state.car[1].counts++
+  initCar(state,car){
+    state.car = car;
   },
-  subtract (state) {
-    state.count--
+  increment (state,obj) {
+    state.car.forEach(item => {
+      if( obj.id == item.id) {
+        // console.log(obj.id)
+        item.counts++
+        console.log(item.counts)
+      }
+    })
+    localStorage.setItem('car', JSON.stringify(state.car))
   },
-  addToCar (state,goodsinfo) {
+  subtract (state,obj) {
+    state.car.forEach(item => {
+      if( obj.id == item.id) {
+          if(item.counts > 1){
+            // console.log(obj.id)
+            item.counts--
+          }
+          console.log(item.counts)
+      }
+    })
+    localStorage.setItem('car', JSON.stringify(state.car))
+  },
+  addToCar (state,goodsinfo) {  //增加购物车
     var flag = false
     state.car.some(item => {
       if(item.id == goodsinfo.id) {
@@ -47,17 +72,28 @@ const mutations = {
     }
     localStorage.setItem('car',JSON.stringify(state.car))
   },
-  // updataGoodsinfo (state,goodsinfo) {
-  //   state.car.some(item => {
-  //     if (item.id == goodsinfo.id) {
-  //       item.count
-  //     }
-  //   })
-  // }
+  removeFormCut(state,obj) {
+    state.car.forEach((item,i) => {
+      if( item.id == obj.id ) {
+        state.car.splice(i,1)
+        return true;
+      }
+    })
+    localStorage.setItem('car',JSON.stringify(state.car))
+  }
 }
 
 const actions = {
-
+  addToCar({commit},params){
+    //用setTime模拟一个异步获取数据
+    setTimeout( () => {
+      let result = 'ok'
+      if(result == 'ok') {
+        //模拟数据获取成功，commitnuations里的addGoods
+        commit('addToCar',params)
+      }
+    })
+  }
 }
 
 export default new Vuex.Store({

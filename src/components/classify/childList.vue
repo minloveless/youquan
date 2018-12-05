@@ -13,67 +13,13 @@
             </div>
         </div> -->
         <div class="childrenList">
-            <div class="recordBox">
+            <div class="recordBox" v-for="(item,index) in childList" :key="index">
                 <div class="topBar">
-                    <p>热门推荐</p>
+                    <p>{{item.title}}</p>
                 </div>
-                <div class="goodsBox" @click="toProductMore(1)">
+                <div class="goodsBox" @click="toProductMore(items.id)" v-for="(items,index) in item.item_list" :key="index">
                     <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-            </div>
-            <div class="recordBox">
-                <div class="topBar">
-                    <p>家用电器</p>
-                </div>
-                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-            </div>
-            <div class="recordBox">
-                <div class="topBar">
-                    <p>手机配件</p>
-                </div>
-                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
-                </div>
-                                <div class="goodsBox">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>手机</span>
+                    <span>{{items.title}}</span>
                 </div>
             </div>
         </div>
@@ -81,12 +27,32 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
     export default{
+        data(){
+            return{
+                childList:[],
+            }
+        },
         methods:{
             toProductMore(id){
                 this.$router.push({path:'/producSeachtList',query:{id:id}})
+            },
+            getChildList(){
+                axios.get('/classify/childList')
+                .then(res => {
+                    console.log(res.data)
+                    this.childList = res.data.child_List
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             }
+        },
+        mounted(){
+            this.getChildList()
         }
+
     }
 </script>
 <style lang="less" scoped>
