@@ -55,13 +55,13 @@
                 <card>
             <div slot="content" class="order_box">
                 <div>
-                    <i class="iconfont icon-dfk"></i><br>
-                    <span>代付款</span>
+                    <i>10</i><br>
+                    <span>商品收藏</span>
                 </div>
-                <div><i class="iconfont icon-daishouhuo"></i><br>
+                <div><i>2</i><br>
                     <span>待收货</span></div>
-                <div><i class="iconfont icon-shouhou"></i><br>
-                    <span>退换/售后</span></div>
+                <div><i>225</i><br>
+                    <span>我的足迹</span></div>
             </div>
 
         </card>

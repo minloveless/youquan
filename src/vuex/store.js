@@ -80,6 +80,18 @@ const mutations = {
       }
     })
     localStorage.setItem('car',JSON.stringify(state.car))
+  },
+  updateGoodsSelected(state,info){
+    state.car = info
+  },
+  updateOneGoodsSelected(state,info1){
+    state.car.forEach(item => {
+      if(item.id == info1.id) {
+        item.active = !item.active
+        return true
+      }
+    })
+    localStorage.setItem('car',JSON.stringify(state.car))
   }
 }
 

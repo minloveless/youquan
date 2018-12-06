@@ -3,20 +3,24 @@
         <x-header :left-options="{backText:''}"
         :right-options="{showMore:true}">购物车</x-header>
         <div class="item_list">
-            <p v-if='!car.length'>空空如也，快去购物吧</p>
-        <div v-else>
+            <div v-if='!car.length' class="empty">
+                <img src="https://img11.360buyimg.com/jdphoto/s180x180_jfs/t18163/292/540553659/74408/adeb7463/5a93c51cN3bb5e37b.png" alt="">
+                <p>空空如也，快去购物吧~</p>
+                <div class="line"><span>我是一根线</span></div>
+            </div>
+    <div v-else>
             <div class="address" v-if="car.length">
             <span><i class="iconfont icon-dizhi"></i><input @click="selectaddress()" placeholder="请选择地址" :value="provinces"></span>
             <p @click="editorAll">{{allEditor?'完成':'编辑商品'}}</p>
-        </div>
-        <div class="youjuan_showList">
+            </div>
+            <div class="youjuan_showList">
             <div class="showList_box">
                 <div class="listContent">
                     <!-- 头部 -->
                     <div class="head_wrap">
-                        <div class="head">
-                            <i class="iconfont icon-xuanzhong" v-show="!active" @click.stop.prevent="chooseCom(1)"></i>
-                            <i class="iconfont icon-xuanzhong1" v-show="active" @click.stop.prevent="chooseCom(0)"></i>
+                        <div class="head" @click="chooseAll">
+                            <i class="iconfont icon-xuanzhong" v-show="!allChoose" @click.stop.prevent="chooseAll"></i>
+                            <i class="iconfont icon-xuanzhong1" v-show="allChoose" @click.stop.prevent="chooseAll"></i>
                             <span>有券良品</span>
                             <div>优惠券</div>
                         </div>
@@ -30,8 +34,8 @@
                         </div>
                         <div class="content">
                             <div class="content_l">
-                                <span><i class="iconfont icon-xuanzhong xuanzhong"  v-show="!goodsactive" @click.stop.prevent="chooseOne(1,0)"></i></span>
-                                <span><i class="iconfont icon-xuanzhong1 xuanzhong"  v-show="goodsactive" @click.stop.prevent="chooseOne(0,0)"></i></span>
+                                <span><i class="iconfont icon-xuanzhong xuanzhong"  v-show="!items.active" @click.stop.prevent="chooseOne({id:items.id})"></i></span>
+                                <span><i class="iconfont icon-xuanzhong1 xuanzhong"  v-show="items.active" @click.stop.prevent="chooseOne({id:items.id})"></i></span>
                                 <img class="showyou" src="https://img10.360buyimg.com/mobilecms/s117x117_jfs/t3871/193/501637202/67656/c6725c75/58534587N53c62548.jpg!q70.dpg.webp" alt=""  @click="goDetail(items.id)">
                             </div>
                             <div class="content_r">
@@ -64,8 +68,10 @@
                 </div>
                 <div class="fixBar">
                     <div class="fixBar_box">
-                        <div class="fixBar_l">
-                            <i class="iconfont icon-xuanzhong"></i><span>全选</span>
+                        <div class="fixBar_l" @click="chooseAll">
+                            <i class="iconfont icon-xuanzhong" v-show="!allChoose"></i>
+                            <i class="iconfont icon-xuanzhong1" v-show="allChoose"></i>
+                            <span>全选</span>
                         </div>
                         <div class="fixBar_r">
                             <div class="fixBar_rl">
@@ -114,7 +120,7 @@
     </div>
 </template>
 <script>
-import {mapState,mapGetters} from 'vuex'
+import {mapState,mapGetters,mapMutations} from 'vuex'
 import axios from 'axios'
 import {Scroller, XHeader, XAddress, ChinaAddressV4Data} from 'vux'
 import areaOwn from '../shopCar/area'
@@ -131,11 +137,15 @@ export default {
             area_id:0,
             // value: '请输入地址',
             CarList: this.$store.state.car,
-            carList:[],
+            // carList: this.car,
             active:0,
             goodsactive:0,
             // showDelect:0,
             itemList: [],
+            allChoose:0,
+            comChoose:0,
+            control:0,
+            newnewCar: this.$store.state.car,
         }
     },
     components: {
@@ -167,23 +177,20 @@ export default {
         editorAll(){
             this.allEditor=!this.allEditor
         },
-        chooseOne(choose,goods){
-            this.goodsactive= choose
+        chooseOne(info1){
+            // this.car.forEach(item => {
+            //     var num = 0;
+            //     if (item.active == true) {
+            //         num += 1
+            //         console.log(num)
+            //         if(num >= this.car.length) {
+            //             this.allChoose = true
+            //         }
+            //     }
+            // });
+            this.control = 1;
+            this.$store.commit("updateOneGoodsSelected",info1)
         },
-        // getCartList(url,str){
-        //      return new Promise((resolve, reject) => {
-        //      let strArrParam = JSON.parse(str)
-        //      axios.get(url,{ params : {
-        //        params: strArrParam
-        //      }})
-        //        .then(response => {
-        //          resolve(response);
-        //        })
-        //        .catch((error) => {
-        //          reject(error)
-        //        })
-        //     })
-        // },
         goDetail(id){
             this.$router.push({path:'/productDetail',query:{id:id}})
         },
@@ -211,17 +218,111 @@ export default {
         closeArea (){
             this.min = false;
         },
+        chooseAll(){
+            console.log(this.newnewCar)
+            var newCar = JSON.parse(JSON.stringify(this.car))
+            console.log(newCar)
+            newCar.map((v) => {
+                v.active = !this.allChoose
+            })
+            this.allChoose = !this.allChoose
+            this.$store.commit('updateGoodsSelected',newCar)
+        }
     },
     mounted(){
          this.getGoodsList()
     },
     computed:{
         ...mapState(['car']),
-        ...mapGetters(['getAllMoney'])
+        ...mapGetters(['getAllMoney']),
+        ...mapMutations(['updateGoodsSelected'])
+    },
+    watch: {
+        newnewCar : {
+            handler (newArr) {
+            if (this.control) {
+                var newList = JSON.parse(JSON.stringify(newArr))
+                var n = 0
+                newList.map( function(v){
+                    if(v.active){
+                        n++
+                    }
+                })
+                if (n == newList.length) {
+                    this.allChoose = 1
+                } else {
+                    this.allChoose = 0
+                }
+                this.control = 0
+            }
+         },
+         deep:true,
+        }
     }
 }
 </script>
 <style lang="less" scoped>
+.empty{
+    position: relative;
+    text-align: center;
+    padding-top: 50px;
+    background-color: #f7f7f7;
+    img{
+        width: 100px;
+        height: 100px;
+    }
+    p{
+        color: #999;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+    .line{
+        margin-top: 30px;
+        position: relative;
+        &::after{
+            content: "";
+            height: 0.5px;
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            right: 10px;
+            background-color: #ccc;
+            z-index: 1;
+            margin-top: -0.5px;
+        }
+        span{
+            z-index: 2;
+            color: #999;
+            background-color: #f7f7f7;
+            height: 1rem;
+            line-height: 1rem;
+            position: relative;
+            padding: 0 15px;
+            &::before{
+                content: "";
+                position: absolute;
+                left: 0px;
+                top: 50%;
+                margin-top: -2px;
+                width: 4px;
+                height: 4px;
+                background-color: #ccc;
+                border-radius: 50%;
+            }
+            &::after{
+                content: "";
+                position: absolute;
+                right: 0px;
+                top: 50%;
+                margin-top: -2px;
+                width: 4px;
+                height: 4px;
+                background-color: #ccc;
+                border-radius: 50%;
+            }
+        }
+    }
+}
 .shopcar_box{
     overflow-y: scroll;
     overflow: hidden;
@@ -426,9 +527,15 @@ export default {
                 float     : left;
                 text-align: center;
                 padding-top:5px;
+                z-index: 100;
                 .icon-xuanzhong{
                     display  : block;
                     font-size: 20px;
+                }
+                .icon-xuanzhong1{
+                    display  : block;
+                    font-size: 20px;
+                    color: #ff3742;
                 }
                 span{
                     color: #999;
@@ -441,10 +548,11 @@ export default {
                     position: absolute;
                     right   : 120px;
                     padding-top: 5px;
+                    width:205px;
                     .fix_lt{
                         float: right;
                         // overflow: hidden;
-                        width:255px;
+                        width:205px;
                         text-align: right;
                         .fix_lt_number{
                             font-weight: 700;

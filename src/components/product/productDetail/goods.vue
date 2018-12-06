@@ -72,6 +72,7 @@
           id:this.$route.query.arr,
           price:666,
           counts:1,
+          active:true,
         }
       }
     },

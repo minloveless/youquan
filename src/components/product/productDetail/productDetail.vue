@@ -27,6 +27,7 @@ import {mapActions} from 'vuex'
         goodsPrice:'',
         id: '',
         counts:'',
+        active:false,
       }
     },
     components:{
@@ -42,7 +43,8 @@ import {mapActions} from 'vuex'
         var goodsinfo = {
           id: this.id,
           price: this.goodsPrice,
-          counts: this.counts
+          counts: this.counts,
+          active: this.active,
         }
         this.$store.commit("addToCar",goodsinfo);
       },
@@ -53,6 +55,8 @@ import {mapActions} from 'vuex'
         console.log(this.id)
         this.counts = data.counts
         console.log(this.counts)
+        this.active = data.active
+        console.log(this.active)
       },
       goShopCar(){
         this.$router.push({path:'/shopcar'})
@@ -114,6 +118,7 @@ import {mapActions} from 'vuex'
       }
       .circle{
         height: 12px;
+        min-width: 12px;
         line-height: 12px;
         background-color: #ff3742;
         border-radius: 8px;

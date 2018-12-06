@@ -1,24 +1,24 @@
 <template>
     <div class="zaidibu">
-      <div class="circle">{{$store.getters.getAllCount}}</div>
+      <div class="circle" v-show="$store.getters.getAllCount">{{$store.getters.getAllCount}}</div>
       <tabbar>
-        <tabbar-item selected  link="/indexhome" >
+        <tabbar-item :selected="$route.path == '/indexhome'"  link="/indexhome" >
           <i slot="icon" class="iconfont icon-yemian-copy-copy"></i>
           <label slot="label">首页</label>
         </tabbar-item>
-        <tabbar-item link="/classify" >
+        <tabbar-item link="/classify" :selected="$route.path == '/classify'">
           <i slot="icon" class="iconfont icon-leimupinleifenleileibie"></i>
           <label slot="label">分类</label>
         </tabbar-item>
-        <tabbar-item  link="/activity">
+        <tabbar-item  link="/activity" :selected="$route.path == '/activity'">
           <i slot="icon" class="iconfont icon-huodong"></i>
           <label slot="label">活动</label>
         </tabbar-item>
-        <tabbar-item  link="/shopcar">
+        <tabbar-item  link="/shopcar" :selected="$route.path == '/shopcar'">
           <i slot="icon" class="iconfont icon-gouwuche"></i>
           <label slot="label">购物车</label>
         </tabbar-item>
-        <tabbar-item  link="/mine">
+        <tabbar-item  link="/mine" :selected="$route.path == '/mine'">
           <i slot="icon" class="iconfont icon-wodedangxuan"></i>
           <label slot="label">我的</label>
         </tabbar-item>
@@ -102,6 +102,7 @@
         height: 12px;
         line-height: 12px;
         // width: 13px;
+               min-width: 12px;
         background-color: #ff3742;
         border-radius: 8px;
         color: #fff;
