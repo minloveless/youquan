@@ -13,13 +13,21 @@
             </div>
         </div> -->
         <div class="childrenList">
-            <div class="recordBox" v-for="(item,index) in childList" :key="index">
-                <div class="topBar">
-                    <p>{{item.title}}</p>
+            <div class="recordBox" v-for="(item,index) in childClassify.child" :key="index">
+                <div v-if="1">
+                    <div class="topBar">
+                        <p>{{item.name}}</p>
+                    </div>
+                    <div class="goodsBox" @click="toProductMore(items.cid)" v-for="(items,index) in item.child" :key="index">
+                        <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
+                        <span>{{items.name}}</span>
+                    </div>
                 </div>
-                <div class="goodsBox" @click="toProductMore(items.id)" v-for="(items,index) in item.item_list" :key="index">
-                    <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
-                    <span>{{items.title}}</span>
+                <div v-else>
+                    <div class="goodsBox_san" @click="toProductMore(items.cid)" v-for="(items,index) in item.item_list" :key="index">
+                        <img src="https://img14.360buyimg.com/focus/s140x140_jfs/t27136/183/1628977274/31007/a6f7ed55/5be6ebd8Nb07ef492.png" alt="">
+                        <span>{{items.name}}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -34,6 +42,7 @@ import axios from 'axios'
                 childList:[],
             }
         },
+        props:["childClassify"],
         methods:{
             toProductMore(id){
                 this.$router.push({path:'/producSeachtList',query:{id:id}})
@@ -75,6 +84,21 @@ import axios from 'axios'
         span{
             display: block;
             text-align: center;
+            font-size: 12px;
+        }
+    }
+    .goodsBox_san{
+        // float: left;
+        padding: 10px 10px 0;
+        margin-bottom: 10px;
+        img{
+            width: 70px;
+            height: 70x;
+        }
+        span{
+            display: block;
+            // text-align: center;
+            margin-left: 23px;
             font-size: 12px;
         }
     }

@@ -4,12 +4,12 @@
             <span class="to_last" @click="backhome"><img src="" alt="">
             <i class="iconfont icon-left"></i>
             </span>
-            <form action="#">
-                <input type="search" class="sousuo" placeholder="请输入你想要的产品">
+            <form action="#" onsubmit = "return false">
+                <input type="search" class="sousuo" placeholder="请输入你想要的产品" v-model="keyWords" @keyup.13 = "goList">
             </form>
-            <button>搜索</button>
+            <button @click="goList">搜索</button>
         </div>
-        <div class="search_show" v-if="false">
+        <div class="search_show" v-show="$route.path == '/search'">
             <span>热门搜索</span>
             <ul>
                 <li>西蒙子烤箱</li>
@@ -26,16 +26,23 @@
     export default{
         data(){
             return{
-                // keyWords:'',
+                keyWords:'',
             }
         },
-        // props:{
-        //     keyWord:Number,
-        // },
+        props:['val'],
         methods:{
             backhome(){
                 this.$router.go(-1);
             },
+            goList(){
+                this.$emit('searchVal',encodeURI(this.keyWords))
+                console.log('---------------')
+            }
+        },
+        watch: {
+            val(newVal){
+                this.keyWords = newVal
+            }
         }
     }
 </script>
