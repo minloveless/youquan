@@ -6,6 +6,7 @@ Vue.use(Vuex);
 var car = JSON.parse(localStorage.getItem('car') || '[]')
 const state = {
   car: car,
+  showLoad: 0,
 }
 
 const getters = {
@@ -92,6 +93,14 @@ const mutations = {
       }
     })
     localStorage.setItem('car',JSON.stringify(state.car))
+  },
+  showLoad(state,value){
+    state.showLoad = state.showLoad + value > 0 ? this.showLoad + value : 0;
+    return state
+  },
+  hideLoad(state) {
+    state.showLoad = 0
+    return state
   }
 }
 

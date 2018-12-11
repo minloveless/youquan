@@ -29,10 +29,11 @@ Vue.use(VueLazyload);
 axios.defaults.baseURL='/api';
 Vue.config.productionTip = false
 
-import { AlertPlugin,ToastPlugin} from 'vux'
+import { AlertPlugin,ToastPlugin, LoadingPlugin} from 'vux'
 
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin);
 /* eslint-disable no-new */
 
 //去登陆

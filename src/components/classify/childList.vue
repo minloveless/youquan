@@ -14,7 +14,7 @@
         </div> -->
         <div class="childrenList">
             <div class="recordBox" v-for="(item,index) in childClassify.child" :key="index">
-                <div v-if="1">
+                <div v-if="item.child.length">
                     <div class="topBar">
                         <p>{{item.name}}</p>
                     </div>
@@ -39,7 +39,7 @@ import axios from 'axios'
     export default{
         data(){
             return{
-                childList:[],
+                // childList:[],
             }
         },
         props:["childClassify"],
@@ -47,19 +47,19 @@ import axios from 'axios'
             toProductMore(id){
                 this.$router.push({path:'/producSeachtList',query:{id:id}})
             },
-            getChildList(){
-                axios.get('/classify/childList')
-                .then(res => {
-                    console.log(res.data)
-                    this.childList = res.data.child_List
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-            }
+            // getChildList(){
+            //     axios.get('/classify/childList')
+            //     .then(res => {
+            //         console.log(res.data)
+            //         this.childList = res.data.child_List
+            //     })
+            //     .catch(err => {
+            //         console.log(err)
+            //     })
+            // }
         },
         mounted(){
-            this.getChildList()
+            // this.getChildList()
         }
 
     }

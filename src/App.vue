@@ -11,6 +11,7 @@ import './style/flexible.css'
 // import foot from "./components/foot.vue"
 import downTip from "./demo.vue"
 import { Alert } from 'vux'
+// import Loading from ""
 // import { Toast } from 'vux'
 export default {
   data(){
@@ -38,7 +39,7 @@ export default {
 .tolo {
   margin-top: 100px;
 }
-  /* @import "./style/swiper.css";
-  @import "./style/plick.less"; */
+  // @import "./style/swiper.css";
+  @import "./style/plick.less"; 
   @import "./style/common.less";
 </style>

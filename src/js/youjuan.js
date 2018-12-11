@@ -176,7 +176,7 @@ export function HttpRequest (type, strMethod, strParameter, hideLoad) { //不需
 
 //截取页面参数
 function getParameter (pName) {
-  return {}
+  return $router.history.current.query[pName] === undefined ? "" : decodeURIComponent($router.history.current.query[pName])
 }
 
 

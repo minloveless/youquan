@@ -4,6 +4,8 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
+  base: __dirname,
   routes: [
     {
       path    : '/', meta: {title:'有券'}, component: function (resolve) {require(['../components/Foot/home.vue'], resolve)},
@@ -43,8 +45,11 @@ export default new Router({
     {
       path: '/producSeachtList', meta: {title:'商品列表'}, component: function (resolve) {require(['../components/product/producSeachtList.vue'], resolve)},
     },
-    // {
-    //   path: '/area', meta: {title:'商品列表'}, component: function (resolve) {require(['../components/shopCar/area.vue'], resolve)},
-    // },
+    {
+      path: '/orderList', meta: {title:'订单列表'}, component: function (resolve) {require(['../components/mine/order/orderList.vue'], resolve)},
+    },
+    {
+      path: '/aftersale', meta: {title:'售后列表'}, component: function (resolve) {require(['../components/mine/order/afterSale.vue'], resolve)},
+    },
   ]
 })

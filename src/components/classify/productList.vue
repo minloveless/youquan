@@ -3,7 +3,7 @@
         <div class="goodsCom" v-if="productList.length" v-for="item in productList" :key="item.id" @click="goDetail(item.id)">
             <div class="imgBox">
                 <span class="presellBox" v-if="item.ispress == 1">
-                    <img src="../../assets/images/yushou.png" alt="" class="pressllImg">
+                    <img src="../../assets/images/yushou.png" alt="" class="presellImg">
                 </span>
                 <img :src="item.img" alt="" :class="{isBig:isBig}">
             </div>
@@ -11,7 +11,7 @@
                 <h2 style="-webkit-box-orient: vertical;">{{item.title}}</h2>
                 <p>
                     <b>￥{{item.price.split(".")[0]}}.<i>{{item.price.split(".")[1]}}</i></b>
-                    <!-- <span>赚￥100</span> -->
+                    <span>赚￥100</span>
                 </p>
             </div>
         </div>
@@ -24,13 +24,22 @@
     export default {
         data(){
             return {
-
+                productList: [
+                    {
+                        id:1,
+                        ispress:1,
+                        img:'https://hdres.huisou.cn/uploads/1/images/20180823/2d25ef4632a4444a4a78e2590254cad8.jpg',
+                        title:'夏天',
+                        price:'100.00',
+                    }
+                ],
+                isBig:false,
             }
         },
-        props: ["productList"],
+        // props: ["productList","isBig"],
         methods: {
             goDetail(ids){
-                this.router.push({path: '../product/productDetail',query: {id:ids}})
+                this.$router.push({path: '/productDetail',query: {id:ids}})
             },
             scrollBottom(){
                 if(this.$refs.container.scrollTop + this.$refs.container.offsetHeight >= this.$refs.container.scrollHeight) {
@@ -52,6 +61,9 @@
     bottom: 0;
     top: 1.137rem;
 }
+.container::after{
+    clear: both;
+}
 .goodsCom{
     display: flex;
     display: -webkit-flex;
@@ -62,6 +74,10 @@
         height: 2.667rem;
         width: 2.667rem;
         border-radius: 3px;
+        &.isBig{
+            width : 4.7rem;
+            height: 4.7rem;
+        }
     }
     div.imgBox{
         position: relative;
@@ -103,7 +119,10 @@
                 border-radius: 1px;
             }
         }
-        b{
+        p{
+            color: #999999;
+            font-size: 14px;
+            b{
             font-size: 0.427rem;
             color: #333333;
             font-weight: normal;
@@ -113,17 +132,19 @@
             position: absolute;
             bottom: 0.7rem;
             left: 0;
-        }
-        span{
-            position: absolute;
-            left: 0;
-            bottom: 0.3733rem;
-            color: #999999;
-            text-decoration: line-through;
-        }
-        p{
-            color: #999999;
-            font-size: 0.32rem;
+            i{
+                font-style: normal;
+                font-weight: 400;
+                font-size: 12px;
+            }
+            }
+            span{
+                position: absolute;
+                left: 0;
+                bottom: 0.3733rem;
+                color: #999999;
+                text-decoration: line-through;
+            }
         }
         button{
             position: absolute;

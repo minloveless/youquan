@@ -43,7 +43,7 @@
                                 <div class="goods_classify">0.18kg/件，AirPods(蓝牙)<i class="iconfont icon-down-trangle"></i></div>
                                 <div class="goods_number">
                                     <span class="price">￥{{items.price}}</span>
-                                    <span class="number"><i class="iconfont icon--hao" @click.stop.prevent="reduce({id:items.id})"></i>{{$store.getters.getgoodscount[items.id]}}<i class="iconfont icon-hao" @click.stop.prevent="add({id:items.id})"></i></span>
+                                    <span class="number"><i class="iconfont icon--hao" @click.stop.prevent="reduce({id:items.id,count:items.counts})"></i>{{$store.getters.getgoodscount[items.id]}}<i class="iconfont icon-hao" @click.stop.prevent="add({id:items.id})"></i></span>
                                 </div>
                                 <div class="add_delect">
                                     <span>移除关注</span>
@@ -115,6 +115,7 @@
 
         <area-own :showArea="min" :areaList="areaList" @chooseArea="chooseArea" :defaultArea="defaultArea" @closeArea="closeArea"></area-own>
 
+        <alert v-model="showAlert" :title="alertTitle">{{alertMsg}}</alert>
 
        
     </div>
@@ -124,6 +125,7 @@ import {mapState,mapGetters,mapMutations} from 'vuex'
 import axios from 'axios'
 import {Scroller, XHeader, XAddress, ChinaAddressV4Data} from 'vux'
 import areaOwn from '../shopCar/area'
+import{Alert} from "vux"
 export default {
     data(){
         return{
@@ -146,13 +148,17 @@ export default {
             comChoose:0,
             control:0,
             newnewCar: this.$store.state.car,
+            alertMsg: "该商品一件起售",
+            showAlert: false,
+            alertTitle: "提示",
         }
     },
     components: {
         Scroller,
         XHeader,
         XAddress,
-        areaOwn
+        areaOwn,
+        Alert,
     },
     methods:{
         getGoodsList(){
@@ -198,7 +204,13 @@ export default {
             this.$store.commit("increment",obj)
         },
         reduce(obj){
-            this.$store.commit("subtract",obj)
+            if(obj.count <= 1){
+                this.showAlert = true;
+                // this.$vux.loading.hide();
+            } else{
+                this.$store.commit("subtract",obj)
+            }
+
         },
         delect(obj){
             this.$store.commit("removeFormCut",obj)
