@@ -7,6 +7,7 @@
             <swiper-item><img src="https://m.360buyimg.com/mobilecms/s843x843_jfs/t20734/276/732178365/32361/9944d6fe/5b16369dN616d723d.jpg!q70.dpg.webp" alt=""></swiper-item>
             <swiper-item><img src="https://m.360buyimg.com/mobilecms/s843x843_jfs/t21076/204/732166452/21647/9eb33fc/5b16369dN94b6ebe5.jpg!q70.dpg.webp" alt=""></swiper-item>
         </swiper>
+        <countdown v-if="aboutData.activity_info||aboutData.is_pressll==1" :aboutData="aboutData" @overFn="getGoodsinfo()"></countdown>
     </div>
     <div class="buy_area">
       <div class="goods_detail">
@@ -65,6 +66,7 @@
 <script>
   import { Swiper, SwiperItem} from 'vux'
   import axios from 'axios'
+  import countdown from '../../countDown.vue'
   export default {
     data(){
       return {
@@ -73,17 +75,30 @@
           price:666,
           counts:1,
           active:true,
+        },
+        aboutData:{
+          is_presell:2,
+          activity_info: 100000,
+          activity_code:100,
         }
       }
     },
     components:{
       Swiper,
       SwiperItem,
+      countdown,
     },
     methods:{
       sendToDetail(){
         this.$emit('goodsNews',this.obj)
-      }
+      },
+      getGoodsinfo(){
+        this.aboutData = {
+          is_presell:2,
+          activity_info: 50000,
+          activity_code:200,
+        }
+      },
     },
     created(){
       this.sendToDetail();

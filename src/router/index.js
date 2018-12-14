@@ -51,5 +51,8 @@ export default new Router({
     {
       path: '/aftersale', meta: {title:'售后列表'}, component: function (resolve) {require(['../components/mine/order/afterSale.vue'], resolve)},
     },
+    {
+      path: '/limitTime', meta: {title:'限时秒杀'}, component: function (resolve) {require(['../components/activity/limitTime.vue'], resolve)},
+    },
   ]
 })

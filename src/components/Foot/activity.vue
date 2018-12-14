@@ -1,7 +1,8 @@
 <template>
     <div>
-        <scroller lock-x height="-55">
+        <scroller lock-x height="-50">
             <div>
+                <div>
                 <x-header :left-options="{backText:''}"
                 :right-options="{showMore:true}">优惠活动</x-header>
             </div>
@@ -51,8 +52,8 @@
             </div>
             <div class="oneshopping">
                 <div class="hotMovie" @click="goDetail">
-                    <div class="top">热门电影<i class="iconfont icon-jiantou-right"></i></div>
-                    <div class="movie_box"><img src="https://img3.doubanio.com/view/dale-online/dale_ad/public/4006a7ccd780b79.jpg" alt=""></div>
+                    <div class="top">品牌秒杀<i class="iconfont icon-jiantou-right"></i></div>
+                    <div class="movie_box"><img src="https://img14.360buyimg.com/jdphoto/s750x240_jfs/t5701/93/1357646628/41007/26b3ebf6/5925858bNbab5cb1d.png!q70.webp" alt=""></div>
                 </div>
             </div>
             <div class="everydayshop">
@@ -63,16 +64,9 @@
                 <div class="goods_box">
                     <div class="goods">
                     </div>
-                                        <div class="goods">
-                    </div>
-                                        <div class="goods">
-                    </div>
-                                        <div class="goods">
-                    </div>
-                                        <div class="goods">
-                    </div>
                 </div>
                 
+            </div>
             </div>
         </scroller>
     </div>
@@ -93,12 +87,15 @@ export default {
                 this.$router.push({path:"/search"})
             },
             goDetail(){
-                this.$router.push({path:"/hotMovie"})
+                this.$router.push({path:"/limitTime"})
             }
     }
 }
 </script>
 <style lang="less" scoped>
+// .body{
+//     padding-bottom: 100px;
+// }
 .search{
     padding: 10px;
     .search_box{

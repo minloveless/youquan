@@ -68,7 +68,7 @@
       </div>
     </transition>
     <!-- 规格弹窗 END -->
-
+  
 
   </div>
 </template>
@@ -119,7 +119,7 @@ import {mapActions} from 'vuex'
       goods,
       comment,
       tuwen,
-      recommend
+      recommend,
     },
     methods:{
       addToShopCar(){
