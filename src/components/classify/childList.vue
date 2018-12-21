@@ -39,7 +39,7 @@ import axios from 'axios'
     export default{
         data(){
             return{
-                // childList:[],
+                childList:[],
             }
         },
         props:["childClassify"],

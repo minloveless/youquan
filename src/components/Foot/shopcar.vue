@@ -26,7 +26,7 @@
                         </div>
                     </div>
                     <!-- 内容 -->
-                    <div class="listItem" v-for="(items,index) in car" :key="index" v-if="items.counts">
+                    <div class="listItem" v-for="(items,index) in newnewCar" :key="index" v-if="items.counts">
                         <div class="top">
                             <i class="iconfont icon-dianpu"></i>
                             <span class="top_price">购满199元，可用优惠券换购商品</span>
@@ -100,7 +100,7 @@
                             <div class="fixBar_rl">
                                 <span>移至收藏</span>
                             </div>
-                            <div class="fixBar_rr">
+                            <div class="fixBar_rr" @click.stop.prevent="delect({id:items.id})">
                                 <span>删除</span>
                             </div>
                         </div>
@@ -116,8 +116,13 @@
         <area-own :showArea="min" :areaList="areaList" @chooseArea="chooseArea" :defaultArea="defaultArea" @closeArea="closeArea"></area-own>
 
         <alert v-model="showAlert" :title="alertTitle">{{alertMsg}}</alert>
-
-       
+        <transition 
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+            out-in>
+            <div class="ball" v-show="ballFlag" ref="ball">+1</div>
+        </transition>
     </div>
 </template>
 <script>
@@ -151,6 +156,8 @@ export default {
             alertMsg: "该商品一件起售",
             showAlert: false,
             alertTitle: "提示",
+            ballFlag: false,
+            oneFlag: false,
         }
     },
     components: {
@@ -182,6 +189,8 @@ export default {
         },
         editorAll(){
             this.allEditor=!this.allEditor
+            this.allChoose = false
+            this.active = 0
         },
         chooseOne(info1){
             // this.car.forEach(item => {
@@ -201,6 +210,7 @@ export default {
             this.$router.push({path:'/productDetail',query:{id:id}})
         },
         add(obj){
+            this.ballFlag = !this.ballFlag
             this.$store.commit("increment",obj)
         },
         reduce(obj){
@@ -239,15 +249,39 @@ export default {
             })
             this.allChoose = !this.allChoose
             this.$store.commit('updateGoodsSelected',newCar)
-        }
+        },
+        beforeEnter(el) {
+            el.style.transform = "translate(0, 0)";
+        },
+        enter(el, done) {
+            el.offsetWidth;
+            // //获取小球的位置
+            // console.log(this.$refs.ball)
+            // const ballPosition = this.$refs.ball[0].getBoundingClientRect();
+            //获取徽标的位置
+            // const badgePosition = document
+            //     .getElementById("all_number")
+            //     .getBoundingClientRect();
+            
+            // const xDist = badgePosition.left - ballPosition.left;
+            // const yDist = badgePosition.top - ballPosition.top;
+
+            el.style.transform ="translateY(-30px)";//${xDist} ${yDist}
+            el.style.transition = "all 0.5s cubic-bezier(.4,-0.3,1,.68)";
+            done();
+        },
+        afterEnter(el){
+            this.ballFlag = !this.ballFlag;
+        }  
     },
     mounted(){
          this.getGoodsList()
+        //   console.log(this.$refs)
     },
     computed:{
         ...mapState(['car']),
         ...mapGetters(['getAllMoney']),
-        ...mapMutations(['updateGoodsSelected'])
+        ...mapMutations(['updateGoodsSelected']),
     },
     watch: {
         newnewCar : {
@@ -258,6 +292,7 @@ export default {
                 newList.map( function(v){
                     if(v.active){
                         n++
+                        console.log(n)
                     }
                 })
                 if (n == newList.length) {
@@ -658,5 +693,42 @@ export default {
         }
     }
 }
+.ball{
+    // width: 15px;
+    // height: 15px;
+    // border-radius: 50%;
+    // background-color: red;
+    position: absolute;
+    z-index: 1001;
+    bottom: 10px;
+    right: 20px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+}
+// .fly-enter{
+//     transform: translate(0,0);
+//     opacity: 1;
+// } 
+// .fly-enter-active {
+//   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+// }
+// .fly-enter-to
+// /* .slide-fade-leave-active for below version 2.1.8 */ {
+//   transform: translateY(-20px);
+//   opacity: 0;
+// }
+// .fly-leave{
+//     transform: translate(0,0);
+//     opacity: 1;
+// } 
+// .fly-leave-active {
+//   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+// }
+// .fly-leave-to
+// /* .slide-fade-leave-active for below version 2.1.8 */ {
+//   transform: translateY(-20px);
+//   opacity: 0;
+// }
  @import "../../style/common.less";
 </style>

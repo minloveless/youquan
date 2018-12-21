@@ -69,7 +69,7 @@
     </transition>
     <!-- 规格弹窗 END -->
   
-
+  <toast  v-model="activityFlag" type="text" :text="toastMsgInfo" width="auto" position="middle"></toast>
   </div>
 </template>
 <script>
@@ -79,6 +79,7 @@ import comment from './comment'
 import tuwen from './/tuwen'
 import recommend from './recommend'
 import {mapActions} from 'vuex'
+import {Toast} from 'vux'
   export default{
     data(){
       return{
@@ -88,20 +89,24 @@ import {mapActions} from 'vuex'
         active:false,
         isSpecDia: false,
         spec: true,
-        spec_id: false,
+        spec_id: 0,
         firstChoose:"",     //选择规格第一种
         secondChoose:"",    //选择规格第二种
         threeChoose:"",    //选择规格第二种
         oneSpecData:[],    //第一种规格分类
-        oneSpecTab:-1,        //默认第一种规格分类
+        oneSpecTab:0,        //默认第一种规格分类
         twoSpecData:[],//第二种规格分类
-        twoSpecTab:-1,         //默认第二种规格分类
+        twoSpecTab:0,         //默认第二种规格分类
         threeSpecTab:-1,        //默认第三种规格分类
         threeSpecData:[],//第三种规格分类
         specTitle1:'颜色',      //弹框标题1
         specTitle2:'版本',      //弹框标题2
         specTitle3:'',
         chooseList:[],
+        activityFlag:false,
+        toastMsgInfo: "", //弹框信息
+        selectedOne: 0,
+        selectedTwo: 0,
         list:[
           {
             title:'颜色',
@@ -120,6 +125,7 @@ import {mapActions} from 'vuex'
       comment,
       tuwen,
       recommend,
+      Toast,
     },
     methods:{
       addToShopCar(){
@@ -137,14 +143,21 @@ import {mapActions} from 'vuex'
         }
       },
       confirmAddToShopCar(){
-        var goodsinfo = {
-          id: this.id,
-          price: this.goodsPrice,
-          counts: this.counts,
-          active: this.active,
+        if((this.selectedOne == -1 || this.selectedTwo == -1) && this.spec == true ){
+              this.$vux.toast.text("请选择商品规格")
+              console.log(this.spec_id)
+              return false;
+              
+        } else {
+              var goodsinfo = {
+              id: this.id,
+              price: this.goodsPrice,
+              counts: this.counts,
+              active: this.active,
+            }
+            this.$store.commit("addToCar",goodsinfo);
+            this.isSpecDia = false;
         }
-        this.$store.commit("addToCar",goodsinfo);
-        this.isSpecDia = false;
       },
       goodsNews(data){
         this.goodsPrice = data.price
@@ -171,10 +184,11 @@ import {mapActions} from 'vuex'
           this.firstChoose = "";
           // this.oneChoose = "";
           newList[0] ="",
-          this.spec_id = false;
+          this.spec_id = "";
+          this.selectedOne = -1;
         } else {
           this.oneSpecTab = index;
-          this.spec_id = true;
+          this.selectedOne = index;
           // this.oneSpecData = this.list[0].color
           // console.log(oneSpecData)
           this.firstChoose = this.oneSpecData[index];
@@ -190,10 +204,12 @@ import {mapActions} from 'vuex'
           this.secondChoose = "";
           // this.oneChoose = "";
            newList[1] ="",
-          this.spec_id = false;
+          this.spec_id = "";
+          this.selectedTwo= -1;
         } else {
           this.twoSpecTab = index;
-          this.spec_id = true;
+          this.spec_id = index;
+          this.selectedTwo = index;
           this.secondChoose = this.twoSpecData[index];
           newList[1] = val
         }
@@ -207,7 +223,7 @@ import {mapActions} from 'vuex'
           this.threeChoose = "";
           // this.oneChoose = "";
           newList[2] ="",
-          this.spec_id = false;
+          this.spec_id = "";
         } else {
           this.oneSpecTab = index;
           // this.spec_id = true;
@@ -219,12 +235,14 @@ import {mapActions} from 'vuex'
       },
       choosePro(that){
         console.log(that.chooseList)
+        // that.spec_id = 
       }
     },
     mounted(){
         this.oneSpecData = this.list[0].color
-        console.log(this.oneSpecData)
+        // console.log(this.oneSpecData)
         this.twoSpecData = this.list[1].version
+        this.spec_id = 1
     }
   }
 </script>

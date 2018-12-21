@@ -9,15 +9,16 @@
             </form>
             <button @click="goList">搜索</button>
         </div>
+        <div v-if=""></div>
         <div class="search_show" v-show="$route.path == '/search'">
             <span>热门搜索</span>
             <ul>
-                <li>西蒙子烤箱</li>
-                <li>美的烤箱</li>
+                <li v-for="item in computedList">{{item.name}}</li>
+                <!-- <li>美的烤箱</li>
                 <li>格力烤箱</li>
                 <li>奥克斯烤箱</li>
                 <li>烤箱</li>
-                <li>烤箱</li>
+                <li>烤箱</li> -->
             </ul>
         </div>
     </div>
@@ -27,6 +28,36 @@
         data(){
             return{
                 keyWords:'',
+                list:[
+                    {
+                        id:1,
+                        name:'西门子烤箱'
+                    },
+                    {
+                        id:2,
+                        name:'美的烤箱'
+                    },
+                    {
+                        id:3,
+                        name:'格力空调'
+                    },
+                    {
+                        id:4,
+                        name:'奥克斯风扇'
+                    },
+                    {
+                        id:5,
+                        name:'小米平衡车'
+                    },
+                    {
+                        id:6,
+                        name:'美菱冰箱'
+                    },
+                    {
+                        id:7,
+                        name:'华为热水器'
+                    },
+                ]
             }
         },
         props:['val'],
@@ -42,6 +73,14 @@
         watch: {
             val(newVal){
                 this.keyWords = newVal
+            }
+        },
+        computed:{
+            computedList: function() {
+                var that = this;
+                return this.list.filter(function(item){
+                    return item.name.indexOf(that.keyWords) != -1
+                })
             }
         }
     }
