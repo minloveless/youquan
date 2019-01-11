@@ -5,7 +5,7 @@
             <i class="iconfont icon-left"></i>
             </span>
             <form action="#" onsubmit = "return false">
-                <input type="search" class="sousuo" placeholder="请输入你想要的产品" v-model="keyWords" @keyup.13 = "goList">
+                <input type="search" v-focus class="sousuo" placeholder="请输入你想要的产品" v-model="keyWords" @keyup.13 = "goList">
             </form>
             <button @click="goList">搜索</button>
         </div>
@@ -68,6 +68,13 @@
             goList(){
                 this.$emit('searchVal',encodeURI(this.keyWords))
                 console.log('---------------')
+            }
+        },
+        directives: {
+            focus: {
+                inserted: function (el) {
+                    el.focus()
+                }
             }
         },
         watch: {

@@ -120,7 +120,7 @@
             @before-enter="beforeEnter"
             @enter="enter"
             @after-enter="afterEnter"
-            out-in>
+            mode="out-in">
             <div class="ball" v-show="ballFlag" ref="ball">+1</div>
         </transition>
     </div>

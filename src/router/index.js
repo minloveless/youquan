@@ -54,5 +54,8 @@ export default new Router({
     {
       path: '/limitTime', meta: {title:'限时秒杀'}, component: function (resolve) {require(['../components/activity/limitTime.vue'], resolve)},
     },
+    {
+      path: '/date', meta: {title:'限时秒杀'}, component: function (resolve) {require(['../components/date.vue'], resolve)},
+    },
   ]
 })
